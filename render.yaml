@@ -4,7 +4,7 @@
 #     publishPath: pages # Directory to publish
 
 services:
-  - type: static
+  - type: web
     name: Yemba-NER-Frontend
     env: static
     buildCommand: ""
