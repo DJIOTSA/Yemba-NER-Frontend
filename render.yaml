@@ -1,4 +1,4 @@
 staticSites:
-  - name: yembanerfrontend
+  - name: Yemba-NER-Frontend
     buildCommand: "" # No build command is needed for plain HTML/CSS/JS
     publishPath: pages # Directory to publish
