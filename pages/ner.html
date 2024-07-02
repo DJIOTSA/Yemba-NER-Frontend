@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yemba NER - Named Entity Recognition | El Mhulo</title>
+    <!-- Google Fonts Link For Icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/all.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+    <script defer src="../assets/script.js" ></script>
+    <script defer src="../assets/validators.js" ></script>
+    <script defer src="../assets/popup.js" ></script>
+    <script defer src="../assets/bootstrap.bundle.min.js" ></script>
+
+    <style>
+        main {
+            font-family: Arial, sans-serif;
+            /* margin: 0 10px; */
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container-ner {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            max-height: calc(85vh);
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 50px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            margin-bottom: 20px;
+            font-size: 16px;
+            box-sizing: border-box;
+            max-height: calc(17vh);
+            min-height: calc(10vh);
+            /* Set the maximum height */
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .output {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-height: calc(35vh);
+            min-height: calc(20vh);
+            overflow-y: auto;
+            text-align: left;
+            box-sizing: border-box;
+            line-height: 1.6;
+            /* Adjust line-height as needed */
+        }
+
+        /* Hide the scrollbar but keep functionality */
+        .output::-webkit-scrollbar {
+            width: 0px;
+            /* Remove scrollbar space */
+            background: transparent;
+            /* Optional: just to avoid empty space */
+        }
+
+        .output {
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+
+        .entity {
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .entity sub {
+            font-size: 10px;
+            color: inherit;
+            padding: 5px;
+        }
+
+        .name {
+            color: blue;
+        }
+
+        .title {
+            color: darkorange;
+        }
+
+        .cardinal {
+            color: darkred;
+        }
+
+        .ordinal {
+            color: purple;
+        }
+
+        .money {
+            color: green;
+        }
+
+        .distance {
+            color: teal;
+        }
+
+        .location {
+            color: magenta;
+        }
+
+        .city {
+            color: navy;
+        }
+
+        .geopolitical {
+            color: brown;
+        }
+
+        .time {
+            color: darkviolet;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+
+        @media (max-width: 760px) {
+            button {
+                padding: 5px 10px;
+                border-radius: 2.5px;
+                font-size: 10px;
+                margin-bottom: 5px;
+            }
+        }
+
+
+        @media (max-width: 420px) {
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            textarea {
+                max-height: 120px;
+                min-height: 60px;
+            }
+
+            .output {
+                max-height: 200px;
+                overflow-y: auto;
+            }
+
+        }
+
+        @media (min-width: 640px) and (max-height: 360px) {
+
+            .container-ner {
+                max-height: 300px;
+            }
+
+            textarea {
+                height: 20px;
+                /* min-height: 60px; */
+            }
+
+            .output {
+                max-height: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body class="container">
+    <header>
+        <nav class="navbar">
+            <span class="hamburger-btn material-symbols-rounded">menu</span>
+            <a href="index.html" class="logo">
+                <img src="../images/Logo2.png" alt="logo">
+                <h2 class="text-ner">Yemba NER</h2>
+            </a>
+            <ul class="links">
+                <span class="close-btn material-symbols-rounded">close</span>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ner.html" class="active">NER</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="#" id="profile-link">Profile</a></li>
+                <li><a href="#" id="aboutus-link">Who Are We</a></li>
+                <li><a href="#" id="contact-link">Contact us</a></li>
+            </ul>
+            <button class="login-btn">LOG IN</button>
+        </nav>
+
+    </header>
+
+    <div class="blur-bg-overlay"></div>
+    <!-- login and sign up popup -->
+    <div class="popup" id="logreg">
+        <span class="close-btn material-symbols-rounded">close</span>
+        <div class="form-box login">
+            <div class="form-details">
+                <h2 class="text-ner" style="margin-top: 7rem;">Welcome Back</h2>
+                <p>Please log in using your personal information to stay connected with us.</p>
+            </div>
+            <div class="form-content">
+                <h2 class="important">LOGIN</h2>
+                <form id="login" action="#">
+                    <div class="field email">
+                        <div class="input-area">
+                            <input type="text" placeholder="Email Address">
+                            <i class="icon fas fa-envelope"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Email can't be blank</div>
+                    </div>
+                    <div class="field password">
+                        <div class="input-area">
+                            <input type="password" placeholder="Password">
+                            <i class="icon fas fa-lock"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Invalid Password</div>
+                    </div>
+                    <a href="#" class="forgot-pass-link">Forgot password?</a>
+                    <button class="cta-button" type="submit">Log In</button>
+                </form>
+                <div class="bottom-link">
+                    Don't have an account?
+                    <a href="#" id="signup-link">Signup</a>
+                </div>
+            </div>
+        </div>
+        <div class="form-box signup">
+            <div class="form-details">
+                <h2 class="text-ner" style="margin-top: 10rem;">Unlock the Power of Yemba</h2>
+                <h6>Create Your Account Today!</h6>
+                <p>Experience the future of data analysis with Yemba, our cutting-edge named entity recognition system.
+                    By creating an account, you'll gain access to powerful tools that transform your data into
+                    actionable insights.</p>
+            </div>
+            <div class="form-content">
+                <h2 class="important">SIGNUP</h2>
+                <form id="register" action="#">
+                    <div class="field username">
+                        <div class="input-area">
+                            <input type="text" placeholder="Username">
+                            <i class="icon fas fa-user"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Username require at least 4 characters </div>
+                    </div>
+                    <div class="field email2">
+                        <div class="input-area">
+                            <input type="text" placeholder="Email Address">
+                            <i class="icon fas fa-envelope"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Email can't be blank</div>
+                    </div>
+                    <div class="field password2">
+                        <div class="input-area">
+                            <input type="password" placeholder="Password">
+                            <i class="icon fas fa-lock"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Password require at least 4 characters</div>
+                    </div>
+                    <div class="policy-text">
+                        <input type="checkbox" id="policy">
+                        <label for="policy">
+                            I agree the
+                            <a href="#" class="option">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    <button class="cta-button" type="submit">Sign Up</button>
+                </form>
+                <div class="bottom-link">
+                    Already have an account?
+                    <a href="#" id="login-link">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- \\\\\\\\\ profile and password change (patch) ///////// -->
+    <div class="popup" id="profile">
+        <span class="close-btn material-symbols-rounded">close</span>
+        <div class="form-box profile">
+            <div class="form-details">
+                <h2 class="text-ner" style="margin-top: 7rem;">Your Profile</h2>
+                <p>View and update your personal information here.</p>
+            </div>
+            <div class="form-content">
+                <h2 class="important">My Profile</h2>
+                <form id="profile" action="#">
+                    <div class="field username3">
+                        <div class="input-area">
+                            <input type="text" placeholder="Username" value="current_username" disabled>
+                            <i class="icon fas fa-user"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                    </div>
+                    <div class="field email3">
+                        <div class="input-area">
+                            <input type="text" placeholder="Email Address" value="current_email@example.com" disabled>
+                            <i class="icon fas fa-envelope"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                    </div>
+                    <div class="field password3">
+                        <div class="input-area">
+                            <input type="password" value="yembaNER ?@& default password-" placeholder="New Password">
+                            <i class="icon fas fa-lock"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Password must be at least 4 characters</div>
+                    </div>
+                    <button class="cta-button" type="submit">Change My password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /\\/\/\/\/\/\/\/\/\/ contact popup /\/\\/\/\/\/\/ -->
+    <div class="popup" id="contact">
+        <span class="close-btn material-symbols-rounded">close</span>
+        <div class="form-box contact">
+            <div class="form-details object-fit-sm-contain border rounded">
+                <h2 style="margin-top: 7rem;">We Value Your Feedback!</h2>
+                <p>Your experience matters to us. If you have any thoughts, suggestions, or concerns, please let us
+                    know. Your feedback helps us improve and serve you better. Feel free to share your insights!</p>
+            </div>
+            <div class="form-content">
+                <h2 class="important">Contact Us</h2>
+                <form id="contact" action="#">
+                    <div class="field textarea">
+                        <textarea name="" id="textarea-contanctus" placeholder="Your voice matters" cols="30"
+                            rows="3"></textarea>
+                        <div class="error error-txt">The text area is empty</div>
+                    </div>
+                    <div class="field emailContact">
+                        <div class="input-area">
+                            <input type="text" placeholder=" Your Email Address">
+                            <div class="error error-txt">Invalid email address.</div>
+                            <i class="icon fas fa-envelope"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                    </div>
+                    <button class="cta-button" type="submit">Send Feedback</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /\/\/\\\/\/\/\/\/\/\/\/ aboutus /\/\/\/\/\/\/\//\/\/\ -->
+    <div class="popup" id="aboutus">
+        <span class="close-btn material-symbols-rounded">close</span>
+        <div class="form-box aboutus">
+            <div class="form-details">
+                <h2 class="text-ner" style="margin-top: 7rem;">We Value Your Feedback!</h2>
+                <p>Your experience matters to us. If you have any thoughts, suggestions, or concerns, please let us
+                    know. Your feedback helps us improve and serve you better. Feel free to share your insights!</p>
+            </div>
+            <div class="form-content text-center">
+                <h2 class="text-ner">About Us</h2>
+                <h3 class="important">Innovative Solutions with Yemba</h3>
+                <p>We're a passionate team of software engineers, transforming ideas into reality with cutting-edge
+                    technology and high skill in linguistics. Meet Yemba, our advanced named entity recognition system,
+                    enhancing data processing and analysis for deeper insights and better decisions. Committed to
+                    quality, innovation, and collaboration, we deliver software that exceeds expectations. Join us on a
+                    journey of technological excellence, powered by Yemba.</p>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- /\/\/\/\/\/\/\/\/\/\/\/\ MAIN /\/\/\/\/\/\/\/\\ -->
+    <main>
+        <div class="container-ner">
+            <h3>Name your entities here.</h3>
+            <textarea id="inputText" placeholder="Enter Yemba text here..."></textarea>
+            <button id="submitBtn">View Result</button>
+            <div class="loader" id="loader" style="display: none;"></div>
+            <div class="output" id="outputArea"></div>
+            <div class="error" id="errorArea"></div>
+        </div>
+    </main>
+
+</body>
+
+
+<script src="script.js"></script>
+
+<!-- Named Entity Recognition -->
+<script>
+    document.getElementById('submitBtn').addEventListener('click', async function () {
+        const inputText = document.getElementById('inputText').value;
+        const outputArea = document.getElementById('outputArea');
+        const errorArea = document.getElementById('errorArea');
+        const loader = document.getElementById('loader');
+
+        // Clear previous output and errors
+        outputArea.innerHTML = '';
+        errorArea.textContent = '';
+
+        if (!inputText.trim()) {
+            errorArea.textContent = 'Please enter some text.';
+            toggleOutputVisibility();
+            return;
+        }
+
+        loader.style.display = 'inline-block';
+
+        try {
+            const response = await fetch('https://your-yemba-ner-api-endpoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: inputText })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            loader.style.display = 'none';
+
+            if (!data.entities || data.entities.length === 0) {
+                outputArea.textContent = 'No entities found.';
+                toggleOutputVisibility();
+                return;
+            }
+
+            data.entities.forEach(entity => {
+                const span = document.createElement('span');
+                span.classList.add('entity', entity.type.toLowerCase());
+
+                // Create the entity text span
+                const entityText = document.createElement('span');
+                entityText.textContent = entity.text;
+                span.appendChild(entityText);
+
+                // Create the sub element for entity type
+                const sub = document.createElement('sub');
+                sub.textContent = " (" + entity.type + ")";
+                span.appendChild(sub);
+
+                outputArea.appendChild(span);
+                outputArea.appendChild(document.createTextNode(' ')); // Add space between entities
+            });
+
+            toggleOutputVisibility();
+        } catch (error) {
+            loader.style.display = 'none';
+            console.error('Error:', error);
+            errorArea.textContent = 'An error occurred while processing the text.';
+
+            // Example sentence with entities
+            const exampleSentence = `
+            <span class="entity name">John Doe <sub>(name)</sub></span>
+            , the <span class="entity title">President <sub>(title)</sub></span>
+            of <span class="entity location">Africa <sub>(location)</sub></span>,
+            visited <span class="entity city">New York <sub>(city)</sub></span>
+            with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
+            dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
+            to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
+            visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
+            and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
+            to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.
+
+            <span class="entity name">John Doe <sub>(name)</sub></span>
+            , the <span class="entity title">President <sub>(title)</sub></span>
+            of <span class="entity location">Africa <sub>(location)</sub></span>,
+            visited <span class="entity city">New York <sub>(city)</sub></span>
+            with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
+            dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
+            to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
+            visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
+            and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
+            to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.
+
+            <span class="entity name">John Doe <sub>(name)</sub></span>
+            , the <span class="entity title">President <sub>(title)</sub></span>
+            of <span class="entity location">Africa <sub>(location)</sub></span>,
+            visited <span class="entity city">New York <sub>(city)</sub></span>
+            with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
+            dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
+            to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
+            visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
+            and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
+            to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.
+
+            `;
+
+            outputArea.innerHTML = exampleSentence;
+            toggleOutputVisibility();
+        }
+    });
+
+    function toggleOutputVisibility() {
+        const outputElement = document.getElementById('outputArea');
+        if (outputElement.innerHTML.trim() === '') {
+            outputElement.style.display = 'none';
+        } else {
+            outputElement.style.display = 'block';
+        }
+    }
+
+    // Ensure the output visibility is toggled on page load
+    document.addEventListener("DOMContentLoaded", toggleOutputVisibility);
+
+
+</script>
+
+</html>
