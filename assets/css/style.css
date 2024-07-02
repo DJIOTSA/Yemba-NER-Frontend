@@ -222,7 +222,7 @@ header {
 .login .form-details,
 .profile .form-details {
   padding: 0 40px;
-  background: url("../images/logo1.png");
+  background: url("../../images/logo1.png");
   background-position: center;
   background-size: cover;
 }
@@ -231,7 +231,7 @@ header {
 .contact .form-details,
 .signup .form-details {
   padding: 0 20px;
-  background: url("../images/logo2.png");
+  background: url("../../images/logo2.png");
   background-position: center;
   background-size: cover;
 }
@@ -359,7 +359,7 @@ form button:hover {
   }
 
   body{
-    background: url("../images/desktop_background.png") center/cover no-repeat;
+    background: url("../../images/desktop_background.png") center/cover no-repeat;
     animation: backgroundMove 30s linear infinite;
   }
 
@@ -394,7 +394,7 @@ form button:hover {
   }
 
   body{
-    background: url("../images/mobile_background.png") center/cover no-repeat;
+    background: url("../../images/mobile_background.png") center/cover no-repeat;
   }
  
   .navbar :is(.hamburger-btn, .close-btn) {
