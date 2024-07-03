@@ -8,4 +8,4 @@ services:
     name: Yemba-NER-Frontend
     env: static
     buildCommand: ""
-    staticPublishPath: ./
+    staticPublishPath: ./pages
