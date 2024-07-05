@@ -789,7 +789,7 @@ main {
 @media (max-width: 950px) and (orientation: landscape) {
     
     main {
-      height: calc(75vh);
+      height: calc(84vh);
       position: relative;
       top: calc(16vh);
     }
