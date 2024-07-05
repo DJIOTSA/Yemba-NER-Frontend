@@ -769,13 +769,14 @@ main::-webkit-scrollbar {
 
 
 
-/* @media (max-width: 576px) and (orientation: portrait) {
+@media (max-width: 778px) and (orientation: landscape) {
+  
   main {
-    height: calc(84vh);
+    height: calc(80vh);
     position: relative;
-    top: calc(16vh);
+    top: calc(18vh);
   }
-} */
+}
 
 /* @media (max-width: 360px) and (orientation: portrait) {
   header{
