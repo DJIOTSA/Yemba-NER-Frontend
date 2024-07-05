@@ -787,9 +787,13 @@ main {
 } */
 
 @media (max-width: 950px) and (orientation: landscape) {
+
+    header{
+      height: calc(16vh);
+    }
     
     main {
-      height: calc(84vh);
+      height: calc(8vh);
       position: relative;
       top: calc(16vh);
     }
