@@ -794,7 +794,7 @@ main::-webkit-scrollbar {
   }
 
   main {
-    height: calc(84vh);
+    height: calc(80vh);
     position: relative;
     top: calc(17vh);
   }
