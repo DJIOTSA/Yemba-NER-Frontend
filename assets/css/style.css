@@ -782,13 +782,13 @@ main::-webkit-scrollbar {
   /* Firefox */
 }
 
-/*  Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-  main .main-container{
-    max-height: calc(80vh);
-    overflow-y: scroll;
+/*  Small devices (landscape phones, 576px and down) */
+@media (max-width: 576px) {
+  main {
+    max-height: calc(88vh);
     position: relative;
-    top: calc(5vh);
+    top: calc(8vh);
+    margin-bottom: .7rem;
   }
 }
 
