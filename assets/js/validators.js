@@ -206,6 +206,10 @@ form4.onsubmit = (e) => {
 
   //if eField and pField doesn't contains error class that mean user filled details properly
   if (!tField.classList.contains("error") && !emailContactField.classList.contains("error")) {
-    window.location.href = form4.getAttribute("action"); //redirecting user to the specified url which is inside action attribute of form tag
+    form4.classList.add('okSent');
+    setTimeout(() => {
+      element = document.body.classList.toggle("show-popup-contact");
+    }), 1500;
+    
   }
 }

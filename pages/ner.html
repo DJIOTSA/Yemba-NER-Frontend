@@ -16,10 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script defer src="../assets/js/script.js"></script>
-    <script defer src="../assets/js/validators.js"></script>
-    <script defer src="../assets/js/popup.js"></script>
-    <script defer src="../assets/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <style>
         main {
@@ -116,10 +114,7 @@
 
         @media (max-width: 360px) and (orientation: portrait) {}
 
-        @media (max-width: 360px) and (orientation: landscape) {
-            
-
-        }
+        @media (max-width: 360px) and (orientation: landscape) {}
 
         @media (max-width: 950px) and (orientation: landscape) {
             main {
@@ -127,11 +122,11 @@
                 bottom: 0;
             }
 
-            textarea{
+            textarea {
                 margin-bottom: 10px;
             }
 
-            h3{
+            h3 {
                 display: none;
             }
 
@@ -152,7 +147,7 @@
             h3 {
                 font-size: 1rem;
             }
-    
+
             button {
                 padding: 5px 10px;
                 border-radius: 5px;
@@ -166,7 +161,7 @@
             position: relative;
             display: inline-block;
             margin-right: 5px;
-        } 
+        }
 
         .entity sub {
             font-size: 10px;
@@ -239,6 +234,21 @@
             color: red;
             margin-top: 10px;
         }
+
+        .alert {
+            padding: 15px;
+            background-color: #f44336;
+            /* Red */
+            color: white;
+            margin-bottom: 15px;
+            opacity: 1;
+            transition: opacity 0.6s;
+            /* 600ms to fade out */
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
     </style>
 </head>
 
@@ -261,7 +271,8 @@
             </ul>
             <button class="login-btn">LOG IN</button>
         </nav>
-
+        <!-- display  alert for feedback send status -->
+        <div id="alert-container"></div>
     </header>
 
     <div class="blur-bg-overlay"></div>
@@ -406,13 +417,13 @@
                 <h2 class="important">Contact Us</h2>
                 <form id="contact" action="#">
                     <div class="field textarea">
-                        <textarea name="" id="textarea-contanctus" placeholder="Your voice matters" cols="30"
+                        <textarea name="message" id="textarea-contanctus" placeholder="Your voice matters" cols="30"
                             rows="3"></textarea>
                         <div class="error error-txt">The text area is empty</div>
                     </div>
                     <div class="field emailContact">
                         <div class="input-area">
-                            <input type="text" placeholder=" Your Email Address">
+                            <input name="from_email" type="email" placeholder=" Your Email Address">
                             <div class="error error-txt">Invalid email address.</div>
                             <i class="icon fas fa-envelope"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
@@ -458,80 +469,79 @@
             <div class="error" id="errorArea"></div>
         </div>
     </main>
+    <script src="../assets/js/emailJs.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/validators.js"></script>
+    <script src="../assets/js/popup.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Named Entity Recognition -->
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', async function () {
+            const inputText = document.getElementById('inputText').value;
+            const outputArea = document.getElementById('outputArea');
+            const errorArea = document.getElementById('errorArea');
+            const loader = document.getElementById('loader');
 
-</body>
+            // Clear previous output and errors
+            outputArea.innerHTML = '';
+            errorArea.textContent = '';
 
-
-<script src="script.js"></script>
-
-<!-- Named Entity Recognition -->
-<script>
-    document.getElementById('submitBtn').addEventListener('click', async function () {
-        const inputText = document.getElementById('inputText').value;
-        const outputArea = document.getElementById('outputArea');
-        const errorArea = document.getElementById('errorArea');
-        const loader = document.getElementById('loader');
-
-        // Clear previous output and errors
-        outputArea.innerHTML = '';
-        errorArea.textContent = '';
-
-        if (!inputText.trim()) {
-            errorArea.textContent = 'Please enter some text.';
-            toggleOutputVisibility();
-            return;
-        }
-
-        loader.style.display = 'inline-block';
-
-        try {
-            const response = await fetch('https://your-yemba-ner-api-endpoint', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text: inputText })
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            loader.style.display = 'none';
-
-            if (!data.entities || data.entities.length === 0) {
-                outputArea.textContent = 'No entities found.';
+            if (!inputText.trim()) {
+                errorArea.textContent = 'Please enter some text.';
                 toggleOutputVisibility();
                 return;
             }
 
-            data.entities.forEach(entity => {
-                const span = document.createElement('span');
-                span.classList.add('entity', entity.type.toLowerCase());
+            loader.style.display = 'inline-block';
 
-                // Create the entity text span
-                const entityText = document.createElement('span');
-                entityText.textContent = entity.text;
-                span.appendChild(entityText);
+            try {
+                const response = await fetch('https://your-yemba-ner-api-endpoint', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: inputText })
+                });
 
-                // Create the sub element for entity type
-                const sub = document.createElement('sub');
-                sub.textContent = " (" + entity.type + ")";
-                span.appendChild(sub);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
 
-                outputArea.appendChild(span);
-                outputArea.appendChild(document.createTextNode(' ')); // Add space between entities
-            });
+                const data = await response.json();
+                loader.style.display = 'none';
 
-            toggleOutputVisibility();
-        } catch (error) {
-            loader.style.display = 'none';
-            console.error('Error:', error);
-            errorArea.textContent = 'An error occurred while processing the text.';
+                if (!data.entities || data.entities.length === 0) {
+                    outputArea.textContent = 'No entities found.';
+                    toggleOutputVisibility();
+                    return;
+                }
 
-            // Example sentence with entities
-            const exampleSentence = `
+                data.entities.forEach(entity => {
+                    const span = document.createElement('span');
+                    span.classList.add('entity', entity.type.toLowerCase());
+
+                    // Create the entity text span
+                    const entityText = document.createElement('span');
+                    entityText.textContent = entity.text;
+                    span.appendChild(entityText);
+
+                    // Create the sub element for entity type
+                    const sub = document.createElement('sub');
+                    sub.textContent = " (" + entity.type + ")";
+                    span.appendChild(sub);
+
+                    outputArea.appendChild(span);
+                    outputArea.appendChild(document.createTextNode(' ')); // Add space between entities
+                });
+
+                toggleOutputVisibility();
+            } catch (error) {
+                loader.style.display = 'none';
+                console.error('Error:', error);
+                errorArea.textContent = 'An error occurred while processing the text.';
+
+                // Example sentence with entities
+                const exampleSentence = `
             <span class="entity name">John Doe <sub>(name)</sub></span>
             , the <span class="entity title">President <sub>(title)</sub></span>
             of <span class="entity location">Africa <sub>(location)</sub></span>,
@@ -567,24 +577,26 @@
 
             `;
 
-            outputArea.innerHTML = exampleSentence;
-            toggleOutputVisibility();
+                outputArea.innerHTML = exampleSentence;
+                toggleOutputVisibility();
+            }
+        });
+
+        function toggleOutputVisibility() {
+            const outputElement = document.getElementById('outputArea');
+            if (outputElement.innerHTML.trim() === '') {
+                outputElement.style.display = 'none';
+            } else {
+                outputElement.style.display = 'block';
+            }
         }
-    });
 
-    function toggleOutputVisibility() {
-        const outputElement = document.getElementById('outputArea');
-        if (outputElement.innerHTML.trim() === '') {
-            outputElement.style.display = 'none';
-        } else {
-            outputElement.style.display = 'block';
-        }
-    }
+        // Ensure the output visibility is toggled on page load
+        document.addEventListener("DOMContentLoaded", toggleOutputVisibility);
 
-    // Ensure the output visibility is toggled on page load
-    document.addEventListener("DOMContentLoaded", toggleOutputVisibility);
+    </script>
+</body>
 
 
-</script>
 
 </html>
