@@ -792,11 +792,11 @@ main::-webkit-scrollbar {
   .navbar .logo h2 {
     margin-top: 0rem;
   }
-  
+
   main {
     height: calc(84vh);
     position: relative;
-    top: calc(16vh);
+    top: calc(17vh);
   }
 
 }
