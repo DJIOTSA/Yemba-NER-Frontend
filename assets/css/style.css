@@ -772,9 +772,9 @@ main::-webkit-scrollbar {
 @media (max-width: 778px) and (orientation: landscape) {
   
   main {
-    height: calc(80vh);
+    height: calc(75vh);
     position: relative;
-    top: calc(18vh);
+    top: calc(20vh);
   }
 }
 
