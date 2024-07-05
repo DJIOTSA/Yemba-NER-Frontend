@@ -759,7 +759,7 @@ button[type="submit"]:hover {
 
 
 main {
-  height: calc(85vh);
+  height: calc(89vh);
   overflow-y: scroll;
   position: relative;
   top: calc(13vh);
