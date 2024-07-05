@@ -785,7 +785,7 @@ main::-webkit-scrollbar {
 /*  Small devices (landscape phones, 576px and down) */
 @media (max-width: 576px) and ((orientation: portrait)  ) {
   main {
-    height: calc(85vh);
+    height: calc(80vh);
     position: relative;
     top: calc(10vh);
   }
