@@ -782,7 +782,7 @@ main::-webkit-scrollbar {
 
 }
 
-@media (max-width: 950px) and (orientation: landscape) {
+@media (orientation: landscape) {
   .navbar .logo h2 {
     display: none;
   }
