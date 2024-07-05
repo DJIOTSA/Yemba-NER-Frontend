@@ -769,15 +769,15 @@ main::-webkit-scrollbar {
 
 
 
-@media (max-width: 576px) and (orientation: portrait) {
+/* @media (max-width: 576px) and (orientation: portrait) {
   main {
     height: calc(82vh);
     position: relative;
     top: calc(10vh);
   }
-}
+} */
 
-@media (max-width: 360px) and (orientation: portrait) {
+/* @media (max-width: 360px) and (orientation: portrait) {
   header{
     height: calc(12vh);
   }
@@ -786,19 +786,19 @@ main::-webkit-scrollbar {
     position: relative;
     top: calc(12vh);
   }
-}
+} */
 
 @media (max-width: 950px) and (orientation: landscape) {
 
-    header{
-      height: calc(16vh);
+    nav .log h2{
+      display: none;
     }
     
-    main {
+    /* main {
       height: calc(84vh);
       position: relative;
       top: calc(16vh);
-    }
+    } */
   }
 
 /* main .main-container {
