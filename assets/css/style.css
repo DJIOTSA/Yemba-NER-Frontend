@@ -360,22 +360,22 @@ form button:hover {
 
   body {
     background: url("../../images/desktop_background.png") center/cover no-repeat;
-    animation: backgroundMove 15s linear infinite;
+    animation: backgroundMove 10s linear infinite;
   }
 
 
   @keyframes backgroundMove {
     0% {
-      background-position: 0% 0%;
+      background-position: 10% 10%;
     }
 
     50% {
-      background-position: 90% 90%;
+      background-position: 30% 30%;
     }
 
 
     100% {
-      background-position: 0% 0%;
+      background-position: 10% 10%;
     }
   }
 
@@ -759,7 +759,7 @@ button[type="submit"]:hover {
 
 
 main {
-  height: calc(89vh);
+  height: calc(85vh);
   overflow-y: scroll;
   position: relative;
   top: calc(13vh);
@@ -787,16 +787,24 @@ main::-webkit-scrollbar {
 /*  Small devices (landscape phones, 576px and down) */
 @media (max-width: 576px) and (orientation: portrait) {
   main {
-    height: calc(85vh);
+    height: calc(82vh);
     position: relative;
     top: calc(10vh);
+  }
+}
+
+@media (max-width: 360px) and (orientation: portrait) {
+  main {
+    height: calc(82vh);
+    position: relative;
+    top: calc(12vh);
   }
 }
 
   @media (max-width: 950px) and (orientation: landscape) {
     
     main {
-      height: calc(70vh);
+      height: calc(75vh);
       position: relative;
       top: calc(16vh);
     }
