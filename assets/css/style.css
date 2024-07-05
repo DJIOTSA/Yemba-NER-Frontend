@@ -778,16 +778,11 @@ main::-webkit-scrollbar {
   }
 }
 
-/* @media (max-width: 360px) and (orientation: portrait) {
-  header{
-    height: calc(12vh);
+@media (max-width: 360px) and (orientation: portrait) {
+  .navbar .logo h2 {
+    display: none;
   }
-  main {
-    height: calc(82vh);
-    position: relative;
-    top: calc(12vh);
-  }
-} */
+}
 
 @media (max-width: 950px) and (orientation: landscape) {
   .navbar .logo h2 {
