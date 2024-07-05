@@ -6,7 +6,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
-  
+
 }
 
 body {
@@ -348,17 +348,17 @@ form button:hover {
   margin-right: 7px;
 }
 
-@media (min-width: 950px){
-  .home{
+@media (min-width: 950px) {
+  .home {
     width: 65%;
   }
-  
-  .home p{
+
+  .home p {
     width: 80%;
     margin-bottom: 2rem;
   }
 
-  body{
+  body {
     background: url("../../images/desktop_background.png") center/cover no-repeat;
     animation: backgroundMove 30s linear infinite;
   }
@@ -367,7 +367,7 @@ form button:hover {
     0% {
       background-position: 0% 0%;
     }
-   
+
     50% {
       background-position: 100% 100%;
     }
@@ -376,32 +376,35 @@ form button:hover {
       background-position: 10% 0%;
     }
   }
-  
+
 }
 
 @media (max-width: 950px) {
 
-  .home{
+  .home {
     width: 100%;
   }
-  
-  .home h2, .home h2 + p, .get-started{
+
+  .home h2,
+  .home h2+p,
+  .get-started {
     text-align: center;
   }
 
-  .get-started + p{
+  .get-started+p {
     text-align: justify;
   }
 
-  body{
+  body {
     background: url("../../images/mobile_background.png") center/cover no-repeat;
   }
- 
+
   .navbar :is(.hamburger-btn, .close-btn) {
     display: block;
   }
 
-  .navbar, main .main-content {
+  .navbar,
+  main .main-content {
     padding: 15px 0;
   }
 
@@ -741,24 +744,25 @@ button[type="submit"]:hover {
   background-color: #c1d83b;
 }
 
-.text-ner{
+.text-ner {
   color: #D7DF23;
 }
 
 
-.important{
+.important {
   font-weight: bold;
 }
 
 
 main {
   max-height: calc(85vh);
-  overflow-y: scroll;  
-  position:relative;
+  overflow-y: scroll;
+  position: relative;
   top: calc(12vh);
+  margin-bottom: 1%;
 }
 
-.main-container{
+.main-container {
   height: fit-content;
   /* overflow-y: scroll; */
 }
@@ -779,26 +783,23 @@ main::-webkit-scrollbar {
 }
 
 /*  Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) { 
+@media (min-width: 576px) {
+  main {
+    max-height: calc(80vh);
+    overflow-y: scroll;
+    position: relative;
+    top: calc(5vh);
+  }
+}
 
- }
-
- /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
-
- }
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {}
 
 /*  Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
+@media (min-width: 992px) {}
 
- }
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}
 
- /* X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
-
- }
-
- /* XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) { 
-
- }
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {}
