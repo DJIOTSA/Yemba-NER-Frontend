@@ -769,7 +769,7 @@ main::-webkit-scrollbar {
 
 
 
-@media (max-width: 950px) and (max-height: 778px) and (orientation: landscape) {
+@media (max-width: 950px) and (orientation: landscape) {
   .navbar .logo h2 {
     display: none;
   }
@@ -782,7 +782,7 @@ main::-webkit-scrollbar {
 }
 
 
-/* @media (max-width: 950px) and (orientation: landscape) {
+@media (max-width: 950px) {
   .navbar .logo h2 {
     margin-top: 0rem;
   }
@@ -793,7 +793,7 @@ main::-webkit-scrollbar {
     top: calc(17vh);
   }
 
-} */
+}
 
 /* main .main-container {
     
