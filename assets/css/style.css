@@ -762,29 +762,31 @@ main {
   height: fit-content;
 }
 
-/* Hide the scrollbar but keep functionality */
-/* main::-webkit-scrollbar {
+main::-webkit-scrollbar {
   width: 0px;
   background: transparent;
-} */
+}
 
 
 
-/* @media (max-width: 576px) and (orientation: portrait) {
+@media (max-width: 576px) and (orientation: portrait) {
   main {
     height: calc(82vh);
     position: relative;
     top: calc(10vh);
   }
-} */
+}
 
-/* @media (max-width: 360px) and (orientation: portrait) {
+@media (max-width: 360px) and (orientation: portrait) {
+  header{
+    height: calc(12vh);
+  }
   main {
     height: calc(82vh);
     position: relative;
     top: calc(12vh);
   }
-} */
+}
 
 @media (max-width: 950px) and (orientation: landscape) {
 
@@ -793,7 +795,7 @@ main {
     }
     
     main {
-      height: calc(8vh);
+      height: calc(84vh);
       position: relative;
       top: calc(16vh);
     }
