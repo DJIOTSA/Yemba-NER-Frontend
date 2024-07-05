@@ -789,12 +789,11 @@ main::-webkit-scrollbar {
 } */
 
 @media (max-width: 950px) and (orientation: landscape) {
-
-    nav .logo h2{
-      display: none;
-    }
-    
+  .navbar .logo h2 {
+    margin-top: 0rem;
   }
+
+}
 
 /* main .main-container {
     
