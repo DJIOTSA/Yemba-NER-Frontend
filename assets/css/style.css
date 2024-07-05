@@ -769,7 +769,7 @@ main::-webkit-scrollbar {
 
 
 
-@media (max-width: 950px) {
+@media (max-width: 950px) and (orientation: portrait) {
   .navbar .logo h2 {
     margin-top: 0rem;
   }
@@ -786,14 +786,15 @@ main::-webkit-scrollbar {
   .navbar .logo h2 {
     display: none;
   }
+
+  /* main {
+    height: calc(80vh);
+    position: relative;
+    top: calc(17vh);
+  } */
   
 }
 
-/* main .main-container {
-    
-
-    margin-bottom: .7rem;
-  } */
 
 
 /* Medium devices (tablets, 768px and up) */
