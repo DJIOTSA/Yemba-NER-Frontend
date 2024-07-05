@@ -410,7 +410,9 @@ form button:hover {
   }
 
   .navbar .logo h2 {
+    margin-top: 1rem;
     font-size: 1.4rem;
+    /* display: none; */
   }
 
   .navbar .links {
@@ -444,8 +446,8 @@ form button:hover {
   }
 
   .navbar .login-btn {
-    font-size: 0.9rem;
-    padding: 7px 10px;
+    font-size: 0.8rem;
+    padding: 5px 8px;
   }
 }
 
