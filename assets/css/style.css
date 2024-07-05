@@ -33,7 +33,7 @@ header {
   max-width: 1200px;
   margin: 0 auto;
   justify-content: space-between;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .navbar .hamburger-btn {
@@ -44,7 +44,7 @@ header {
 }
 
 .navbar .active {
-  padding: 10px;
+  padding-bottom: 10px;
   border-bottom: 3px solid #D7DF23;
 }
 
@@ -408,6 +408,8 @@ form button:hover {
     padding: 15px 0;
   }
 
+  
+
   .navbar .logo img {
     display: none;
   }
@@ -759,13 +761,10 @@ main {
   overflow-y: scroll;
   position: relative;
   top: calc(12vh);
-  /* margin-bottom: 1%; */
 }
 
 .main-container {
   height: fit-content;
-  /* overflow-y: scroll; */
-  padding: 1em 0;
 }
 
 /* Hide the scrollbar but keep functionality */
@@ -784,17 +783,20 @@ main::-webkit-scrollbar {
 }
 
 /*  Small devices (landscape phones, 576px and down) */
-@media (max-width: 576px) {
+@media (max-width: 576px) and ((orientation: portrait)  ) {
   main {
-    height: calc(80vh);
+    height: calc(85vh);
     position: relative;
     top: calc(10vh);
   }
+}
 
-  @media (max-width: 576px) and (orientation: landscape) {
+  @media (max-width: 950px) and (orientation: landscape) {
+    
     main {
+      height: calc(75vh);
       position: relative;
-      top: calc(12vh);
+      top: calc(16vh);
     }
   }
 
@@ -803,7 +805,7 @@ main::-webkit-scrollbar {
 
     margin-bottom: .7rem;
   } */
-}
+
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {}
