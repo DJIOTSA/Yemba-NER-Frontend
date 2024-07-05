@@ -784,7 +784,7 @@ main::-webkit-scrollbar {
 
 /*  Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  main {
+  main .main-container{
     max-height: calc(80vh);
     overflow-y: scroll;
     position: relative;
