@@ -12,10 +12,7 @@
 body {
   height: 100vh;
   width: 100%;
-  overflow-y: hidden;
 }
-
-
 
 header {
   position: fixed;
@@ -24,6 +21,7 @@ header {
   left: 0;
   z-index: 10;
   padding: 0 10px;
+  height: calc(12vh);
 }
 
 .navbar {
@@ -126,22 +124,13 @@ header {
   transform: translate(-50%, -70%);
   max-height: calc(93vh);
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-
-/* Hide the scrollbar but keep functionality */
 .popup::-webkit-scrollbar {
   width: 0px;
-  /* Remove scrollbar space */
   background: transparent;
-  /* Optional: just to avoid empty space */
-}
-
-.popup {
-  -ms-overflow-style: none;
-  /* Internet Explorer 10+ */
-  scrollbar-width: none;
-  /* Firefox */
 }
 
 .show-popup-logreg .popup#logreg {
@@ -171,7 +160,6 @@ header {
   transform: translate(-50%, -50%);
   transition: transform 0.3s ease, opacity 0.1s;
 }
-
 
 .popup .close-btn {
   position: absolute;
@@ -217,7 +205,6 @@ header {
   justify-content: center;
   align-items: center;
 }
-
 
 .login .form-details,
 .profile .form-details {
@@ -379,7 +366,7 @@ form button:hover {
     }
   }
 
-} 
+}
 
 @media (max-width: 950px) {
 
@@ -410,7 +397,7 @@ form button:hover {
     padding: 15px 0;
   }
 
-  
+
 
   .navbar .logo img {
     display: none;
@@ -419,7 +406,6 @@ form button:hover {
   .navbar .logo h2 {
     margin-top: 1rem;
     font-size: 1.4rem;
-    /* display: none; */
   }
 
   .navbar .links {
@@ -759,58 +745,57 @@ button[type="submit"]:hover {
 
 
 main {
-  height: calc(89vh);
+  height: calc(88vh);
   overflow-y: scroll;
   position: relative;
   top: calc(12vh);
-}
-
-.main-container {
-  height: fit-content;
-}
-
-/* Hide the scrollbar but keep functionality */
-main::-webkit-scrollbar {
-  width: 0px;
-  /* Remove scrollbar space */
-  background: transparent;
-  /* Optional: just to avoid empty space */
-}
-
-.main {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   /* Internet Explorer 10+ */
   scrollbar-width: none;
   /* Firefox */
 }
 
-/*  Small devices (landscape phones, 576px and down) */
-@media (max-width: 576px) and (orientation: portrait) {
+
+.main-container {
+  height: fit-content;
+}
+
+/* Hide the scrollbar but keep functionality */
+/* main::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+} */
+
+
+
+/* @media (max-width: 576px) and (orientation: portrait) {
   main {
     height: calc(82vh);
     position: relative;
     top: calc(10vh);
   }
-}
+} */
 
-@media (max-width: 360px) and (orientation: portrait) {
+/* @media (max-width: 360px) and (orientation: portrait) {
   main {
     height: calc(82vh);
     position: relative;
     top: calc(12vh);
   }
-}
+} */
 
-  @media (max-width: 950px) and (orientation: landscape) {
+/* @media (max-width: 950px) and (orientation: landscape) {
     
     main {
       height: calc(75vh);
       position: relative;
       top: calc(16vh);
     }
-  }
+  } */
 
-  /* main .main-container {
+/* main .main-container {
     
 
     margin-bottom: .7rem;
