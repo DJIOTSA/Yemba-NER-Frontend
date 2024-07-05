@@ -762,7 +762,7 @@ main {
   height: calc(89vh);
   overflow-y: scroll;
   position: relative;
-  top: calc(13vh);
+  top: calc(12vh);
 }
 
 .main-container {
