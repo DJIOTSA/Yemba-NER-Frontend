@@ -790,15 +790,10 @@ main::-webkit-scrollbar {
 
 @media (max-width: 950px) and (orientation: landscape) {
 
-    nav .log h2{
+    nav .logo h2{
       display: none;
     }
     
-    /* main {
-      height: calc(84vh);
-      position: relative;
-      top: calc(16vh);
-    } */
   }
 
 /* main .main-container {
