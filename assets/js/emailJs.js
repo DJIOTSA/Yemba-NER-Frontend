@@ -1,5 +1,4 @@
 
-
 // EmailJS initialization
 (function () {
     // Ensure the EmailJS library is loaded
@@ -29,7 +28,7 @@ window.onload = function () {
                     showAlert('FAILED...try again later', true);
                 });
 
-                this.classList.remove('okSent')
+            form.classList.remove('okSent')
         }
 
     });
@@ -53,3 +52,5 @@ function showAlert(message, isError = false) {
         }, 600); // Match the transition duration
     }, 3000);
 }
+
+
