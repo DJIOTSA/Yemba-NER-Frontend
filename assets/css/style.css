@@ -755,17 +755,17 @@ button[type="submit"]:hover {
 
 
 main {
-  max-height: calc(85vh);
+  height: calc(85vh);
   overflow-y: scroll;
   position: relative;
   top: calc(12vh);
-  padding-bottom: 1%;
+  /* margin-bottom: 1%; */
 }
 
 .main-container {
   height: fit-content;
   /* overflow-y: scroll; */
-  margin: 1em 0;
+  padding: 1em 0;
 }
 
 /* Hide the scrollbar but keep functionality */
@@ -786,15 +786,16 @@ main::-webkit-scrollbar {
 /*  Small devices (landscape phones, 576px and down) */
 @media (max-width: 576px) {
   main {
+    height: calc(80vh);
     position: relative;
     top: calc(10vh);
   }
 
-  main .main-container {
-    max-height: calc(88vh);
+  /* main .main-container {
+    
 
     margin-bottom: .7rem;
-  }
+  } */
 }
 
 /* Medium devices (tablets, 768px and up) */
