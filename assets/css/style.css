@@ -783,7 +783,7 @@ main::-webkit-scrollbar {
 }
 
 /*  Small devices (landscape phones, 576px and down) */
-@media (max-width: 576px) and ((orientation: portrait)  ) {
+@media (max-width: 576px) and (orientation: portrait) {
   main {
     height: calc(80vh);
     position: relative;
@@ -794,7 +794,7 @@ main::-webkit-scrollbar {
   @media (max-width: 950px) and (orientation: landscape) {
     
     main {
-      height: calc(50vh);
+      height: calc(75vh);
       position: relative;
       top: calc(16vh);
     }
