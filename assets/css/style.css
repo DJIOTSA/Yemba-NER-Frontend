@@ -786,14 +786,14 @@ main {
   }
 } */
 
-/* @media (max-width: 950px) and (orientation: landscape) {
+@media (max-width: 950px) and (orientation: landscape) {
     
     main {
       height: calc(75vh);
       position: relative;
       top: calc(16vh);
     }
-  } */
+  }
 
 /* main .main-container {
     
