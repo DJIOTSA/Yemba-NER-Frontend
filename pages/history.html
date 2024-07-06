@@ -119,7 +119,7 @@
                 <li><a href="#" id="contact-link">Contact us</a></li>
             </ul>
 
-            <button class="login-btn">LOG IN</button>
+            <button class="login-btn">Login</button>
         </nav>
         <!-- display  alert for feedback send status -->
         <div id="alert-container"></div>
@@ -130,17 +130,18 @@
     <!-- login and sign up popup -->
     <div class="popup" id="logreg">
         <span class="close-btn material-symbols-rounded">close</span>
-        <div class="form-box login">
+        <div class="form-box login" >
             <div class="form-details">
                 <h2 class="text-ner" style="margin-top: 7rem;">Welcome Back</h2>
                 <p>Please log in using your personal information to stay connected with us.</p>
             </div>
             <div class="form-content">
                 <h2 class="important ">LOGIN</h2>
+                <div class="alert-container-login"></div>
                 <form id="login" action="#">
                     <div class="field email">
                         <div class="input-area">
-                            <input type="text" placeholder="Email Address">
+                            <input type="text" name="email" placeholder="Email Address">
                             <i class="icon fas fa-envelope"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
@@ -148,7 +149,7 @@
                     </div>
                     <div class="field password">
                         <div class="input-area">
-                            <input type="password" placeholder="Password">
+                            <input type="password" name="password" placeholder="Password">
                             <i class="icon fas fa-lock"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
@@ -173,10 +174,11 @@
             </div>
             <div class="form-content">
                 <h2 class="important">SIGNUP</h2>
-                <form id="register" action="#">
+                <div class="alert-container-singup"></div>
+                <form id="register" action="">
                     <div class="field username">
                         <div class="input-area">
-                            <input type="text" placeholder="Username">
+                            <input type="text" name="username" placeholder="Username">
                             <i class="icon fas fa-user"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
@@ -184,7 +186,7 @@
                     </div>
                     <div class="field email2">
                         <div class="input-area">
-                            <input type="text" placeholder="Email Address">
+                            <input type="text" name="email2" placeholder="Email Address">
                             <i class="icon fas fa-envelope"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
@@ -192,7 +194,7 @@
                     </div>
                     <div class="field password2">
                         <div class="input-area">
-                            <input type="password" placeholder="Password">
+                            <input type="password" name="password2" placeholder="Password">
                             <i class="icon fas fa-lock"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
@@ -225,6 +227,7 @@
             </div>
             <div class="form-content">
                 <h2 class="important">My Profile</h2>
+                <div class="alert-container-profile"></div>
                 <form id="profile" action="#">
                     <div class="field username3">
                         <div class="input-area">

@@ -49,7 +49,7 @@ function showAlert(message, isError = false) {
         setTimeout(() => {
             alert.remove();
         }, 600); // Match the transition duration
-    }, 3000);
+    }, 5000);
 }
 
 
