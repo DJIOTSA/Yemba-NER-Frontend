@@ -26,7 +26,7 @@ window.onload = function () {
                 .then(() => {
                     showAlert('Feedback send!');
                 }, (error) => {
-                    showAlert('FAILED...try again later', true);
+                    showAlert('FAILED...Try again later', true);
                 });
         }
 
