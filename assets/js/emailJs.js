@@ -1,16 +1,16 @@
 
 // EmailJS initialization
-(function () {
-    // Ensure the EmailJS library is loaded
-    if (typeof emailjs !== 'undefined') {
-        // https://dashboard.emailjs.com/admin/account
-        emailjs.init({
-            publicKey: "wZ3-aYparLQ7L_WUn",
-        });
-    } else {
-        console.error("EmailJS library not loaded.");
-    }
-})();
+// (function () {
+//     // Ensure the EmailJS library is loaded
+//     if (typeof emailjs !== 'undefined') {
+//         // https://dashboard.emailjs.com/admin/account
+//         emailjs.init({
+//             publicKey: "wZ3-aYparLQ7L_WUn",
+//         });
+//     } else {
+//         console.error("EmailJS library not loaded.");
+//     }
+// })();
 
 
 // Form submission handling
@@ -21,13 +21,25 @@ window.onload = function () {
 
         if (form.classList.contains('okSent')) {
             form.classList.remove('okSent');
-            // these IDs from the previous steps
-            emailjs.sendForm('service_s7dq7bp', 'template_1satqv4', this)
-                .then(() => {
-                    showAlert('Feedback send!');
-                }, (error) => {
-                    showAlert('FAILED...Try again later', true);
-                });
+            // message = form.querySelector("textarea").value;
+            // email = form.querySelector('.emailContact').querySelector('input').value;
+            
+            var formData = new FormData(this);
+            formData.append('service_id', 'service_s7dq7bp');
+            formData.append('template_id', 'template_1satqv4');
+            formData.append('user_id', 'wZ3-aYparLQ7L_WUn');
+
+            $.ajax('https://api.emailjs.com/api/v1.0/email/send-form', {
+                type: 'POST',
+                data: formData,
+                contentType: false, // auto-detection
+                processData: false // no need to parse formData to string
+            }).done(function () {
+                showAlert('Your mail is sent!');
+            }).fail(function (error) {
+                showAlert('FAILED...Try again later', true);
+            });
+
         }
 
     });
