@@ -20,8 +20,12 @@ window.onload = function () {
                 processData: false // no need to parse formData to string
             }).done(function () {
                 showAlert('Your mail is sent!');
+                form.querySelector("textarea").value = "";
+                form.querySelector('.emailContact').querySelector('input').value="";
             }).fail(function (error) {
                 showAlert('FAILED...Try again later', true);
+                form.querySelector("textarea").value = "";
+                form.querySelector('.emailContact').querySelector('input').value="";
             });
 
         }
