@@ -20,6 +20,7 @@ window.onload = function () {
         event.preventDefault();
 
         if (form.classList.contains('okSent')) {
+            form.classList.remove('okSent');
             // these IDs from the previous steps
             emailjs.sendForm('service_s7dq7bp', 'template_1satqv4', this)
                 .then(() => {
@@ -27,8 +28,6 @@ window.onload = function () {
                 }, (error) => {
                     showAlert('FAILED...try again later', true);
                 });
-
-            form.classList.remove('okSent')
         }
 
     });
