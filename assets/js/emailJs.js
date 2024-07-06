@@ -1,18 +1,4 @@
 
-// EmailJS initialization
-// (function () {
-//     // Ensure the EmailJS library is loaded
-//     if (typeof emailjs !== 'undefined') {
-//         // https://dashboard.emailjs.com/admin/account
-//         emailjs.init({
-//             publicKey: "wZ3-aYparLQ7L_WUn",
-//         });
-//     } else {
-//         console.error("EmailJS library not loaded.");
-//     }
-// })();
-
-
 // Form submission handling
 window.onload = function () {
     const form = document.querySelector('form#contact');
@@ -21,8 +7,6 @@ window.onload = function () {
 
         if (form.classList.contains('okSent')) {
             form.classList.remove('okSent');
-            // message = form.querySelector("textarea").value;
-            // email = form.querySelector('.emailContact').querySelector('input').value;
             
             var formData = new FormData(this);
             formData.append('service_id', 'service_s7dq7bp');
