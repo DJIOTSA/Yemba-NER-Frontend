@@ -251,7 +251,7 @@ async function login() {
   password = pInput.value;
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/user/api/token/', {
+    const response = await fetch('https://yembaner.onrender.com/user/api/token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -291,7 +291,7 @@ async function refreshToken() {
     showAlert("Please login to continue!", "login");
   }
 
-  const response = await fetch('http://127.0.0.1:8000/user/api/token/refresh/', {
+  const response = await fetch('https://yembaner.onrender.com/user/api/token/refresh/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -358,7 +358,7 @@ async function registration() {
   const password = pInput2.value;
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/user/signup/', {
+    const response = await fetch('https://yembaner.onrender.com/user/signup/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -387,7 +387,7 @@ async function registration() {
 
 // view profile
 async function fetchUserProfile() {
-  const response = await apiRequest('http://127.0.0.1:8000/user/profile/');
+  const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
   const email = document.querySelector('form#profile .email3 input');
   const username = document.querySelector('form#profile .username3 input');
   const first_name = document.querySelector('form#profile .first_name2 input');
