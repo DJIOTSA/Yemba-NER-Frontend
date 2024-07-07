@@ -206,8 +206,8 @@ header {
   align-items: center;
 }
 
-.login .form-details,
-.profile .form-details {
+.profile .form-details,
+.login .form-details {
   padding: 0 40px;
   background: url("../../images/logo1.png");
   background-position: center;

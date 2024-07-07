@@ -130,7 +130,7 @@
     <!-- login and sign up popup -->
     <div class="popup" id="logreg">
         <span class="close-btn material-symbols-rounded">close</span>
-        <div class="form-box login" >
+        <div class="form-box login">
             <div class="form-details">
                 <h2 class="text-ner" style="margin-top: 7rem;">Welcome Back</h2>
                 <p>Please log in using your personal information to stay connected with us.</p>
@@ -174,7 +174,7 @@
             </div>
             <div class="form-content">
                 <h2 class="important">SIGNUP</h2>
-                <div class="alert-container-singup"></div>
+                <div class="alert-container-signup"></div>
                 <form id="register" action="">
                     <div class="field username">
                         <div class="input-area">
@@ -191,6 +191,22 @@
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
                         <div class="error error-txt">Email can't be blank</div>
+                    </div>
+                    <div class="field first_name">
+                        <div class="input-area">
+                            <input type="text" name="first_name" placeholder="Your First Name">
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">First name can't be blank</div>
+                    </div>
+                    <div class="field last_name">
+                        <div class="input-area">
+                            <input type="text" name="last_name" placeholder="Your Last Name">
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Last name can't be blank</div>
                     </div>
                     <div class="field password2">
                         <div class="input-area">
@@ -223,7 +239,7 @@
         <div class="form-box profile">
             <div class="form-details">
                 <h2 class="text-ner" style="margin-top: 7rem;">Your Profile</h2>
-                <p>View and update your personal information here.</p>
+                <p>View your personal information here.</p>
             </div>
             <div class="form-content">
                 <h2 class="important">My Profile</h2>
@@ -243,15 +259,24 @@
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
                     </div>
-                    <div class="field password3">
+                    <div class="field first_name2">
                         <div class="input-area">
-                            <input type="password" value="yembaNER ?@& default password-" placeholder="New Password">
-                            <i class="icon fas fa-lock"></i>
+                            <input type="text" name="first_name2" placeholder="Your First Name"
+                                value="current_first_name" disabled>
+                            <i class="icon fas fa-user-circle"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
-                        <div class="error error-txt">Password must be at least 4 characters</div>
+                        <div class="error error-txt">First name can't be blank</div>
                     </div>
-                    <button class="cta-button" type="submit">Change My password</button>
+                    <div class="field last_name2">
+                        <div class="input-area">
+                            <input type="text" name="last_name2" placeholder="Your Last Name" value="current_last_name"
+                                disabled>
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Last name can't be blank</div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -312,7 +337,7 @@
 
     <!-- /\/\/\/\/\/\/\/\/\/\/\/\ MAIN /\/\/\/\/\/\/\/\\ -->
     <main class="flex-fill container">
-        <div class="main-container">
+        <div id="history" class="main-container">
             <div class="text-white home">
                 <h2 class="h1 fw-bolder mb-5">All Your Previous Works Range From The Recent To The Oldest!</h2>
                 <table class="table rounded-pill">
@@ -322,97 +347,8 @@
                             <th scope="col">Result</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ut cum velit eos soluta
-                                assumenda! Fugit rem ut hic, doloremque sapiente illo modi, autem beatae quam magnam
-                                quasi veritatis praesentium.</td>
-                            <td><span class="entity name">John Doe <sub>(name)</sub></span>
-                                , the <span class="entity title">President <sub>(title)</sub></span>
-                                of <span class="entity location">Africa <sub>(location)</sub></span>,
-                                visited <span class="entity city">New York <sub>(city)</sub></span>
-                                with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-                                dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-                                to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-                                visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-                                and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-                                to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.</td>
-                        </tr>
-                        <tr>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ut cum velit eos soluta
-                                assumenda! Fugit rem ut hic, doloremque sapiente illo modi, autem beatae quam magnam
-                                quasi veritatis praesentium.</td>
-                            <td><span class="entity name">John Doe <sub>(name)</sub></span>
-                                , the <span class="entity title">President <sub>(title)</sub></span>
-                                of <span class="entity location">Africa <sub>(location)</sub></span>,
-                                visited <span class="entity city">New York <sub>(city)</sub></span>
-                                with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-                                dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-                                to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-                                visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-                                and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-                                to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.</td>
-                        </tr>
-                        <tr>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ut cum velit eos soluta
-                                assumenda! Fugit rem ut hic, doloremque sapiente illo modi, autem beatae quam magnam
-                                quasi veritatis praesentium.</td>
-                            <td><span class="entity name">John Doe <sub>(name)</sub></span>
-                                , the <span class="entity title">President <sub>(title)</sub></span>
-                                of <span class="entity location">Africa <sub>(location)</sub></span>,
-                                visited <span class="entity city">New York <sub>(city)</sub></span>
-                                with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-                                dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-                                to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-                                visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-                                and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-                                to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.</td>
-                        </tr>
-                        <tr>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ut cum velit eos soluta
-                                assumenda! Fugit rem ut hic, doloremque sapiente illo modi, autem beatae quam magnam
-                                quasi veritatis praesentium.</td>
-                            <td><span class="entity name">John Doe <sub>(name)</sub></span>
-                                , the <span class="entity title">President <sub>(title)</sub></span>
-                                of <span class="entity location">Africa <sub>(location)</sub></span>,
-                                visited <span class="entity city">New York <sub>(city)</sub></span>
-                                with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-                                dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-                                to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-                                visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-                                and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-                                to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.</td>
-                        </tr>
-                        <tr>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ut cum velit eos soluta
-                                assumenda! Fugit rem ut hic, doloremque sapiente illo modi, autem beatae quam magnam
-                                quasi veritatis praesentium.</td>
-                            <td><span class="entity name">John Doe <sub>(name)</sub></span>
-                                , the <span class="entity title">President <sub>(title)</sub></span>
-                                of <span class="entity location">Africa <sub>(location)</sub></span>,
-                                visited <span class="entity city">New York <sub>(city)</sub></span>
-                                with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-                                dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-                                to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-                                visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-                                and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-                                to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.</td>
-                        </tr>
-                        <tr>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ut cum velit eos soluta
-                                assumenda! Fugit rem ut hic, doloremque sapiente illo modi, autem beatae quam magnam
-                                quasi veritatis praesentium.</td>
-                            <td><span class="entity name">John Doe <sub>(name)</sub></span>
-                                , the <span class="entity title">President <sub>(title)</sub></span>
-                                of <span class="entity location">Africa <sub>(location)</sub></span>,
-                                visited <span class="entity city">New York <sub>(city)</sub></span>
-                                with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-                                dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-                                to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-                                visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-                                and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-                                to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.</td>
-                        </tr>
+                    <tbody id="history-content">
+
                     </tbody>
                 </table>
 
@@ -426,6 +362,120 @@
     <script src="../assets/js/validators.js"></script>
     <script src="../assets/js/popup.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <!-- fetch data history data -->
+    <script>
+        
+        // Code to check login state and update content (assuming you're on the specific page)
+        // history function
+        async function fetchUserHistory() {
+            const history = document.querySelector('#history');
+            setInterval(()=>{
+                if (!retrieveLoginState()) {
+                history.querySelector('h2').innerHTML = "You must have an account to see your history.";
+                history.querySelector('.table').style.display = "none";
+                return;
+            }
+            history.querySelector('h2').innerHTML = "All Your Previous Works Range From The Recent To The Oldest!";
+            history.querySelector('.table').style.display = "";
+            })
+            if (retrieveLoginState()) {
+                
+                const response = await apiRequest('http://127.0.0.1:8000/app/history/');
+                if (response.ok) {
+                    const data = await response.json();
+                    historyContent.innerHTML = ''
+                    for (element of data['results'].reverse()) {
+                        let template = `<tr><td>${element['input']}</td><td>${element['output']}</td></tr>`
+                        historyContent.innerHTML += template;
+
+                    }
+
+
+                } else {
+                    console.log('Failed to fetch data:', response.statusText);
+                }
+            }
+
+        }
+
+        function storeLoginState(isLoggedIn) {
+            localStorage.setItem('isLoggedIn', isLoggedIn); // Or use sessionStorage if needed
+        }
+
+        function retrieveLoginState() {
+            const storedState = localStorage.getItem('isLoggedIn'); // Or sessionStorage
+            return storedState === 'true'; // Parse the stored value
+        }
+
+        async function refreshToken() {
+            const refresh_token = localStorage.getItem('refresh_token');
+
+            if (!refresh_token) {
+                document.body.classList.toggle("show-popup-logreg");
+                showAlert("Please login to continue!", "login");
+            }
+
+            const response = await fetch('http://127.0.0.1:8000/user/api/token/refresh/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ refresh: refresh_token })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('access_token', data.access);
+            } else {
+                // Handle token refresh failure (e.g., log out the user)
+                document.body.classList.toggle("show-popup-logreg");
+                showAlert("Please login to continue!", "login");
+            }
+        }
+
+
+        async function apiRequest(endpoint, options = {}) {
+            const access_token = localStorage.getItem('access_token');
+
+            if (!access_token) {
+                console.error('No access token found');
+                return;
+            }
+
+            const response = await fetch(endpoint, {
+                ...options,
+                headers: {
+                    ...options.headers,
+                    'Authorization': `Bearer ${access_token}`
+                }
+            });
+
+            if (response.status === 401) {
+                // Token might be expired, try to refresh it
+                await refreshToken();
+
+                // Retry the request with the new access token
+                const newAccessToken = localStorage.getItem('access_token');
+                const retryResponse = await fetch(endpoint, {
+                    ...options,
+                    headers: {
+                        ...options.headers,
+                        'Authorization': `Bearer ${newAccessToken}`
+                    }
+                });
+
+                return retryResponse;
+            }
+
+            return response;
+        }
+
+
+
+
+        // Ensure the output visibility is toggled on page load
+        document.addEventListener("DOMContentLoaded", fetchUserHistory);
+    </script>
 </body>
 
 </html>

@@ -111,7 +111,7 @@
             </div>
             <div class="form-content">
                 <h2 class="important">SIGNUP</h2>
-                <div class="alert-container-singup"></div>
+                <div class="alert-container-signup"></div>
                 <form id="register" action="./">
                     <div class="field username">
                         <div class="input-area">
@@ -128,6 +128,22 @@
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
                         <div class="error error-txt">Email can't be blank</div>
+                    </div>
+                    <div class="field first_name">
+                        <div class="input-area">
+                            <input type="text" name="first_name" placeholder="Your First Name">
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">First name can't be blank</div>
+                    </div>
+                    <div class="field last_name">
+                        <div class="input-area">
+                            <input type="text" name="last_name" placeholder="Your Last Name">
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Last name can't be blank</div>
                     </div>
                     <div class="field password2">
                         <div class="input-area">
@@ -160,7 +176,7 @@
         <div class="form-box profile">
             <div class="form-details">
                 <h2 class="text-ner" style="margin-top: 7rem;">Your Profile</h2>
-                <p>View and update your personal information here.</p>
+                <p>View your personal information here.</p>
             </div>
             <div class="form-content">
                 <h2 class="important">My Profile</h2>
@@ -180,15 +196,22 @@
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
                     </div>
-                    <div class="field password3">
+                    <div class="field first_name2">
                         <div class="input-area">
-                            <input type="password" value="yembaNER ?@& default password-" placeholder="New Password">
-                            <i class="icon fas fa-lock"></i>
+                            <input type="text" name="first_name2" placeholder="Your First Name" value="current_first_name" disabled>
+                            <i class="icon fas fa-user-circle"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
-                        <div class="error error-txt">Password must be at least 4 characters</div>
+                        <div class="error error-txt">First name can't be blank</div>
                     </div>
-                    <button class="cta-button" type="submit">Change My password</button>
+                    <div class="field last_name2">
+                        <div class="input-area">
+                            <input type="text" name="last_name2" placeholder="Your Last Name" value="current_last_name" disabled>
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Last name can't be blank</div>
+                    </div>
                 </form>
             </div>
         </div>

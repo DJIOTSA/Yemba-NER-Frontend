@@ -32,19 +32,6 @@ signupLoginLink.forEach(link => {
 
 
 
-//  /\/\\/\/\/\/\/\/\/ profile and password change \/\\/\/\/\/\/\\/\/\/\
-const showProfileBtn = document.querySelector("#profile-link");
-const profilePopup = document.querySelector("#profile.popup");
-const hideProfileBtn = profilePopup.querySelector(".close-btn");
-
-//  Show profile popup
-showProfileBtn.addEventListener("click", () => {
-  element = document.body.classList.toggle("show-popup-profile");
-});
-// Hide login popup
-hideProfileBtn.addEventListener("click", () => showProfileBtn.click());
-
-
 // /\/\/\/\/\/\//\/\ contact us /\/\/\/\\/\/\\/\/\/\/\/\
 const showContactBtn = document.querySelector("#contact-link");
 const contactPopup = document.querySelector("#contact.popup");

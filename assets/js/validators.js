@@ -1,5 +1,6 @@
 // update login textContent
 updateLoginButton();
+const history = document.querySelector('#history');
 
 // **************************  form  validation for login *****###########################
 const form = document.querySelector("form#login");
@@ -63,6 +64,10 @@ uField = form2.querySelector(".username");
 uInput = uField.querySelector("input");
 eField2 = form2.querySelector(".email2");
 eInput2 = eField2.querySelector("input");
+fField = form2.querySelector(".first_name");
+fInput = fField.querySelector("input");
+lField = form2.querySelector(".last_name");
+lInput = lField.querySelector("input");
 pField2 = form2.querySelector(".password2");
 pInput2 = pField2.querySelector("input");
 
@@ -72,16 +77,22 @@ form2.onsubmit = (e) => {
   (uInput.value == "") ? uField.classList.add("shake", "error") : checkUsername();
   (eInput2.value == "") ? eField2.classList.add("shake", "error") : checkEmail2();
   (pInput2.value == "") ? pField2.classList.add("shake", "error") : checkPass2();
+  (fInput.value == "") ? fField.classList.add("shake", "error") : checkFirstname();
+  (lInput.value == "") ? lField.classList.add("shake", "error") : checkLastname();
 
   setTimeout(() => { //remove shake class after 500ms
     uField.classList.remove("shake");
     eField2.classList.remove("shake");
     pField2.classList.remove("shake");
+    fField.classList.remove("shake");
+    lField.classList.remove("shake");
   }, 500);
 
   uInput.onkeyup = () => { checkUsername(); } //calling checkUsername function on username input keyup
   eInput2.onkeyup = () => { checkEmail2(); } //calling checkEmail function on email input keyup
   pInput2.onkeyup = () => { checkPass2(); } //calling checkPassword function on pass input keyup
+  fInput.onkeyup = () => { checkFirstname(); }
+  lInput.onkeyup = () => { checkLastname(); }
 
   function checkEmail2() { //checkEmail function
     let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; //pattern for validate email
@@ -117,46 +128,55 @@ form2.onsubmit = (e) => {
     }
   }
 
-  //if eField and pField doesn't contains error class that mean user filled details properly
-  if (!eField2.classList.contains("error") && !pField2.classList.contains("error") && !uField.classList.contains("error")) {
-    window.location.href = form2.getAttribute("action"); //redirecting user to the specified url which is inside action attribute of form tag
+  function checkFirstname() {
+    if (fInput.value.length == '') {
+      fField.classList.add("error");
+      fField.classList.remove("valid");
+    } else {
+      fField.classList.remove("error");
+      fField.classList.add("valid");
+    }
   }
-}
 
-
-// *** /\/\/\/\/\/\/\/\/ form validation for the registration /\/\/\/\/\/\***
-
-const form3 = document.querySelector("form#profile");
-pField3 = form3.querySelector(".password3");
-pInput3 = pField3.querySelector("input");
-
-form3.onsubmit = (e) => {
-  e.preventDefault(); //preventing from form submitting
-  //if email and password is blank then add shake class in it else call specified function
-  (pInput3.value == "") ? pField3.classList.add("shake", "error") : checkPass3();
-
-  setTimeout(() => { //remove shake class after 500ms
-    pField3.classList.remove("shake");
-  }, 500);
-
-  pInput3.onkeyup = () => { checkPass3(); } //calling checkPassword function on pass input keyup
-
-
-  function checkPass3() { //checkPass function
-    if (pInput3.value.length < 4) { //if pass is empty then add error and remove valid class
-      pField3.classList.add("error");
-      pField3.classList.remove("valid");
-    } else { //if pass is empty then remove error and add valid class
-      pField3.classList.remove("error");
-      pField3.classList.add("valid");
+  function checkLastname() {
+    if (lInput.value.length == '') {
+      lField.classList.add("error");
+      lField.classList.remove("valid");
+    } else {
+      lField.classList.remove("error");
+      lField.classList.add("valid");
     }
   }
 
   //if eField and pField doesn't contains error class that mean user filled details properly
-  if (!pField3.classList.contains("error")) {
-    window.location.href = form3.getAttribute("action"); //redirecting user to the specified url which is inside action attribute of form tag
+  if (!eField2.classList.contains("error") && !pField2.classList.contains("error") && !uField.classList.contains("error") && !fField.classList.contains("error") && !lField.classList.contains("error")) {
+    showAlert("A verification email will be send to the provided email shortly.", "signup", false, 4000);
+    // perform the registration
+    registration();
+
+    setTimeout(() => {
+      element = document.body.classList.toggle("show-popup-logreg");
+    }, 4000)
+
   }
 }
+
+
+// *** /\/\/\/\/\/\/\/\/  profile popup and data load /\/\/\/\/\/\***
+
+//  /\/\\/\/\/\/\/\/\/ profile and password change \/\\/\/\/\/\/\\/\/\/\
+const showProfileBtn = document.querySelector("#profile-link");
+const profilePopup = document.querySelector("#profile.popup");
+const hideProfileBtn = profilePopup.querySelector(".close-btn");
+
+//  Show profile popup
+showProfileBtn.addEventListener("click", () => {
+  element = document.body.classList.toggle("show-popup-profile");
+  fetchUserProfile();
+});
+// Hide login popup
+hideProfileBtn.addEventListener("click", () => showProfileBtn.click());
+
 
 
 // contact us validator 
@@ -219,15 +239,19 @@ form4.onsubmit = (e) => {
 }
 
 
+
+// history content
+const historyContent = document.getElementById('history-content');
+
+
+
 // login functions
 async function login() {
-  email = String(document.querySelector("form#login").querySelector(".email").querySelector("input").value);
-  password = String(document.querySelector("form#login").querySelector(".password").querySelector("input").value);
-
-
+  email = eInput.value;
+  password = pInput.value;
 
   try {
-    const response = await fetch('https://yembaner.onrender.com/user/api/token/', {
+    const response = await fetch('http://127.0.0.1:8000/user/api/token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -239,20 +263,21 @@ async function login() {
       const data = await response.json();
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
-  
+
       // handle login button and change login status to true
       storeLoginState(true);
       updateLoginButton();
       showAlert('Login successful!', "login");
       element = document.body.classList.toggle("show-popup-logreg");
-  
+      eInput.value = "";
+      pInput.value = "";
     } else {
-      showAlert("Something went wrong. Please check your credentials or your network.", "login", true);
+      showAlert("Something went wrong. Please check your credentials or your network.", "login", true, 7000);
     }
 
   }
   catch {
-    showAlert("Something went wrong. Please check your network connetion.", "login", true);
+    showAlert("Something went wrong. Please check your network connection.", "login", true);
   }
 
 }
@@ -262,12 +287,11 @@ async function refreshToken() {
   const refresh_token = localStorage.getItem('refresh_token');
 
   if (!refresh_token) {
-    console.error('token not found!');
-    showAlert("Please login to get access to this resource!", "", true);
-    return;
+    document.body.classList.toggle("show-popup-logreg");
+    showAlert("Please login to continue!", "login");
   }
 
-  const response = await fetch('https://yembaner.onrender.com/user/api/token/refresh/', {
+  const response = await fetch('http://127.0.0.1:8000/user/api/token/refresh/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -280,82 +304,122 @@ async function refreshToken() {
     localStorage.setItem('access_token', data.access);
   } else {
     // Handle token refresh failure (e.g., log out the user)
-    showAlert("Please login to get access to this resource!", "", true);
-    console.error('Failed to refresh token:', response.statusText);
+    document.body.classList.toggle("show-popup-logreg");
+    showAlert("Please login to continue!", "login");
   }
 }
 
-// async function apiRequest(endpoint, options = {}) {
-//   const access_token = localStorage.getItem('access_token');
 
-//   if (!access_token) {
-//     console.error('No access token found');
-//     showAlert("Please login to get access to this resource!", "", true);
-//     return;
-//   }
+async function apiRequest(endpoint, options = {}) {
+  const access_token = localStorage.getItem('access_token');
 
-//   const response = await fetch(endpoint, {
-//     ...options,
-//     headers: {
-//       ...options.headers,
-//       'Authorization': `Bearer ${access_token}`
-//     }
-//   });
+  if (!access_token) {
+    console.error('No access token found');
+    return;
+  }
 
-//   if (response.status === 401) {
-//     // Token might be expired, try to refresh it
-//     await refreshToken();
+  const response = await fetch(endpoint, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${access_token}`
+    }
+  });
 
-//     // Retry the request with the new access token
-//     const newAcce
-//     const retryResponse = await fetch(endpoint, {
-//       ...options,
-//       headers: {
-//         ...options.headers,
-//         'Authorization': `Bearer ${newAccessToken}`
-//       }
-//     });
+  if (response.status === 401) {
+    // Token might be expired, try to refresh it
+    await refreshToken();
 
-//     return retryResponse;
-//   }
+    // Retry the request with the new access token
+    const newAccessToken = localStorage.getItem('access_token');
+    const retryResponse = await fetch(endpoint, {
+      ...options,
+      headers: {
+        ...options.headers,
+        'Authorization': `Bearer ${newAccessToken}`
+      }
+    });
 
-//   return response;
-// }
+    return retryResponse;
+  }
 
-
-// // Example of using apiRequest to fetch some data
-// async function fetchData() {
-//   const response = await apiRequest('http://localhost:8000/api/some-endpoint/');
-//   if (response.ok) {
-//     const data = await response.json();
-//     console.log('Data fetched successfully:', data);
-//   } else {
-//     console.log('Failed to fetch data:', response.statusText);
-//   }
-// }
+  return response;
+}
 
 
 
 
 // registration function
+async function registration() {
+  const username = uInput.value;
+  const email = eInput2.value;
+  const first_name = fInput.value;
+  const last_name = lInput.value;
+  const password = pInput2.value;
+
+  try {
+    const response = await fetch('http://127.0.0.1:8000/user/signup/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, username, first_name, last_name, password })
+    });
+
+    if (response.ok) {
+      // Clear input fields
+      uInput.value = '';
+      eInput2.value = '';
+      fInput.value = '';
+      lInput.value = '';
+      pInput2.value = '';
+    } else {
+      const errorData = await response.json(); // Wait for JSON parsing
+      showAlert(`${errorData['email'] ? errorData['email'][0] : ''} \n ${errorData['username'] ? errorData['username'][0] : ''}`, "", true, 7000);
+    }
+  } catch (error) {
+    // Handle all errors (network, parsing, etc.)
+    console.error('Error:', error);
+    showAlert("An unexpected error occurred. Please try again later.", "", true, 7000);
+  }
+}
 
 
+// view profile
+async function fetchUserProfile() {
+  const response = await apiRequest('http://127.0.0.1:8000/user/profile/');
+  const email = document.querySelector('form#profile .email3 input');
+  const username = document.querySelector('form#profile .username3 input');
+  const first_name = document.querySelector('form#profile .first_name2 input');
+  const last_name = document.querySelector('form#profile .last_name2 input');
+  if (response.ok) {
+    const data = await response.json();
+    username.value = `Username: ${data['results'][0]['username']}`;
+    email.value = `Email: ${data['results'][0]['email']}`;
+    first_name.value = `First Name: ${data['results'][0]['first_name']}`;
+    last_name.value = `Last Name: ${data['results'][0]['last_name']}`;
 
+  } else {
+    showAlert("Login to see your personal informations", "profile", false, 3000);
+  }
+}
 
+// setInterval(() => {
+//   if (!retrieveLoginState()) {
+//     history.querySelector('h2').innerHTML = "You must have an account to see your history.";
+//     history.querySelector('.table').style.display = "none";
+//     return;
+//   }
+//   history.querySelector('h2').innerHTML = "All Your Previous Works Range From The Recent To The Oldest!";
+//   history.querySelector('.table').style.display = "";
+//   fetchUserHistory()
+// }, 1000);
 
-// ner function
-
-
-
-
-
-// history function
 
 
 
 
 // alert
-
 
 function showAlert(message, path = "", isError = false, duration = 5000) {
   let element = null;

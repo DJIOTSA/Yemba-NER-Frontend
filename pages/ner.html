@@ -324,7 +324,7 @@
             </div>
             <div class="form-content">
                 <h2 class="important">SIGNUP</h2>
-                <div class="alert-container-singup"></div>
+                <div class="alert-container-signup"></div>
                 <form id="register" action="#">
                     <div class="field username">
                         <div class="input-area">
@@ -341,6 +341,22 @@
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
                         <div class="error error-txt">Email can't be blank</div>
+                    </div>
+                    <div class="field first_name">
+                        <div class="input-area">
+                            <input type="text" name="first_name" placeholder="Your First Name">
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">First name can't be blank</div>
+                    </div>
+                    <div class="field last_name">
+                        <div class="input-area">
+                            <input type="text" name="last_name" placeholder="Your Last Name">
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Last name can't be blank</div>
                     </div>
                     <div class="field password2">
                         <div class="input-area">
@@ -373,7 +389,7 @@
         <div class="form-box profile">
             <div class="form-details">
                 <h2 class="text-ner" style="margin-top: 7rem;">Your Profile</h2>
-                <p>View and update your personal information here.</p>
+                <p>View your personal information here.</p>
             </div>
             <div class="form-content">
                 <h2 class="important">My Profile</h2>
@@ -393,15 +409,25 @@
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
                     </div>
-                    <div class="field password3">
+                    <div class="field first_name2">
                         <div class="input-area">
-                            <input type="password" value="yembaNER ?@& default password-" placeholder="New Password">
-                            <i class="icon fas fa-lock"></i>
+                            <input type="text" name="first_name2" placeholder="Your First Name"
+                                value="current_first_name" disabled>
+                            <i class="icon fas fa-user-circle"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
-                        <div class="error error-txt">Password must be at least 4 characters</div>
+                        <div class="error error-txt">First name can't be blank</div>
                     </div>
-                    <button class="cta-button" type="submit">Change My password</button>
+                    <div class="field last_name2">
+                        <div class="input-area">
+                            <input type="text" name="last_name2" placeholder="Your Last Name" value="current_last_name"
+                                disabled>
+                            <i class="icon fas fa-user-circle"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Last name can't be blank</div>
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -480,7 +506,8 @@
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <!-- Named Entity Recognition -->
     <script>
-        document.getElementById('submitBtn').addEventListener('click', async function () {
+        document.getElementById('submitBtn').addEventListener('click', async function (e) {
+            e.preventDefault();
             const inputText = document.getElementById('inputText').value;
             const outputArea = document.getElementById('outputArea');
             const errorArea = document.getElementById('errorArea');
@@ -544,44 +571,24 @@
                 console.error('Error:', error);
                 errorArea.textContent = 'An error occurred while processing the text.';
 
-                // Example sentence with entities
-                const exampleSentence = `
-            <span class="entity name">John Doe <sub>(name)</sub></span>
-            , the <span class="entity title">President <sub>(title)</sub></span>
-            of <span class="entity location">Africa <sub>(location)</sub></span>,
-            visited <span class="entity city">New York <sub>(city)</sub></span>
-            with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-            dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-            to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-            visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-            and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-            to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.
 
-            <span class="entity name">John Doe <sub>(name)</sub></span>
-            , the <span class="entity title">President <sub>(title)</sub></span>
-            of <span class="entity location">Africa <sub>(location)</sub></span>,
-            visited <span class="entity city">New York <sub>(city)</sub></span>
-            with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-            dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-            to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-            visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-            and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-            to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.
 
-            <span class="entity name">John Doe <sub>(name)</sub></span>
-            , the <span class="entity title">President <sub>(title)</sub></span>
-            of <span class="entity location">Africa <sub>(location)</sub></span>,
-            visited <span class="entity city">New York <sub>(city)</sub></span>
-            with <span class="entity cardinal">500 <sub>(cardinal)</sub></span>
-            dollars and <span class="entity distance">5 kilometers <sub>(distance)</sub></span>
-            to spare. This was his <span class="entity ordinal">first <sub>(ordinal)</sub></span>
-            visit to the <span class="entity geopolitical">USA <sub>(geopolitical)</sub></span>,
-            and he donated <span class="entity money">$1000 <sub>(money)</sub></span>
-            to local charities at <span class="entity time">10AM <sub>(time)</sub></span>.
+                let inputText = 'John Doe, the President of Africa, visited New York with 500 dollars and 5 kilometers to spare. This was his first visit to the USA, and he donated $1000 to local charities at 10AM.';
+                let entities = [
+                    { "entity": "John Doe", "type": "name" },
+                    { "entity": "President", "type": "title" },
+                    { "entity": "Africa", "type": "location" },
+                    { "entity": "New York", "type": "city" },
+                    { "entity": "500", "type": "cardinal" },
+                    { "entity": "5 kilometers", "type": "distance" },
+                    { "entity": "first", "type": "ordinal" },
+                    { "entity": "USA", "type": "geopolitical" },
+                    { "entity": "$1000", "type": "money" },
+                    { "entity": "10AM", "type": "time" }
+                ];
 
-            `;
 
-                outputArea.innerHTML = exampleSentence;
+                outputArea.innerHTML = formatTextWithEntities(inputText, entities);
                 toggleOutputVisibility();
             }
         });
@@ -594,6 +601,60 @@
                 outputElement.style.display = 'block';
             }
         }
+
+
+
+        // Function to format input text based on entities
+        // function formatTextWithEntities(inputText, entities) {
+        //     // Sort entities by their start index in the input text
+        //     entities.sort((a, b) => inputText.indexOf(a.entity) - inputText.indexOf(b.entity));
+
+        //     let formattedText = "";
+        //     let lastIndex = 0;
+
+        //     entities.forEach(entityObj => {
+        //         const { entity, type } = entityObj;
+        //         const startIndex = inputText.indexOf(entity, lastIndex);
+        //         const endIndex = startIndex + entity.length;
+
+        //         // Add text before the entity
+        //         formattedText += inputText.substring(lastIndex, startIndex);
+
+        //         // Add the entity with styling
+        //         formattedText += `<span class="entity ${type}">${entity} <sub>(${type})</sub></span>`;
+
+        //         // Update the last index
+        //         lastIndex = endIndex;
+        //     });
+
+        //     // Add any remaining text after the last entity
+        //     formattedText += inputText.substring(lastIndex);
+
+        //     return formattedText;
+        // }
+
+
+        function formatTextWithEntities(inputText, entities) {
+            // Create a map to store entity types by their entity text for quick lookup
+            const entityMap = new Map();
+            entities.forEach(({ entity, type }) => {
+                entityMap.set(entity, type);
+            });
+
+            // Split the text into words to process each word individually
+            const words = inputText.split(/\b/);
+            const formattedWords = words.map(word => {
+                const type = entityMap.get(word);
+                if (type) {
+                    return `<span class="entity ${type}">${word} <sub>(${type})</sub></span>`;
+                }
+                return word;
+            });
+
+            // Join the formatted words back into a single string
+            return formattedWords.join('');
+        }
+
 
         // Ensure the output visibility is toggled on page load
         document.addEventListener("DOMContentLoaded", toggleOutputVisibility);
