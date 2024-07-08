@@ -277,7 +277,7 @@ async function login() {
 
   }
   catch {
-    showAlert("Something went wrong. Please check your network connection.", "login", true);
+    showAlert("Something went wrong. Please check your credentials or your network.", "login", true);
   }
 
 }
