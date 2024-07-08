@@ -94,7 +94,7 @@
             transition: opacity 0.6s;
             /* 600ms to fade out */
             position: fixed;
-            top: 20px;
+            top: 40px;
             right: 20px;
             z-index: 1000;
         }
@@ -371,7 +371,7 @@
             const history = document.querySelector('#history');
             setInterval(()=>{
                 if (!retrieveLoginState()) {
-                history.querySelector('h2').innerHTML = "You must have an account to see your history.";
+                history.querySelector('h2').innerHTML = "You must have an account and logged in to see your history.";
                 history.querySelector('.table').style.display = "none";
                 return;
             }
