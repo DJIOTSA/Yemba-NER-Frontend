@@ -49,7 +49,7 @@ form.onsubmit = (e) => {
 
   //if eField and pField doesn't contains error class that mean user filled details properly
   if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
-    showAlert("Authenticating...", "login", false, 1500);
+    showAlert("Wait a moment...", "login", false, 1500);
     // perform the login here
     login();
   }
