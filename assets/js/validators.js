@@ -1,5 +1,37 @@
-// update login textContent
+// update login button textContent
 updateLoginButton();
+
+
+/*  utility functions */
+
+function checkEmail(emailField, emailInput) { //checkEmail function
+  /* check if the email meet the required format */
+  let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; //pattern for validate email
+  if (!emailInput.value.match(pattern)) { //if pattern not matched then add error and remove valid class
+    emailField.classList.add("error");
+    emailField.classList.remove("valid");
+    let errorTxt = emailField.querySelector(".error-txt");
+    //if email value is not empty then show please enter valid email else show Email can't be blank
+    (emailInput.value != "") ? errorTxt.innerText = "Enter a valid email address" : errorTxt.innerText = "Email can't be blank";
+  } else { //if pattern matched then remove error and add valid class
+    emailField.classList.remove("error");
+    emailField.classList.add("valid");
+  }
+}
+
+function checkPass(passwordField, passwordInput) { //checkPass function
+  /* Make sure the password has at least 4 character */
+  if (passwordInput.value.length < 4) { // if pass is empty then add error and remove valid class
+    passwordField.classList.add("error");
+    passwordField.classList.remove("valid");
+  } else { // if pass is empty then remove error and add valid class
+    passwordField.classList.remove("error");
+    passwordField.classList.add("valid");
+  }
+}
+
+
+
 const history = document.querySelector('#history');
 
 // **************************  form  validation for login *****###########################
@@ -12,40 +44,17 @@ pInput = pField.querySelector("input");
 form.onsubmit = (e) => {
   e.preventDefault(); //preventing from form submitting
   //if email and password is blank then add shake class in it else call specified function
-  (eInput.value == "") ? eField.classList.add("shake", "error") : checkEmail();
-  (pInput.value == "") ? pField.classList.add("shake", "error") : checkPass();
+  (eInput.value == "") ? eField.classList.add("shake", "error") : checkEmail(eField, eInput);
+  (pInput.value == "") ? pField.classList.add("shake", "error") : checkPass(pField, pInput);
 
   setTimeout(() => { //remove shake class after 500ms
     eField.classList.remove("shake");
     pField.classList.remove("shake");
   }, 500);
 
-  eInput.onkeyup = () => { checkEmail(); } //calling checkEmail function on email input keyup
-  pInput.onkeyup = () => { checkPass(); } //calling checkPassword function on pass input keyup
+  eInput.onkeyup = () => { checkEmail(eField, eInput); } //calling checkEmail function on email input keyup
+  pInput.onkeyup = () => { checkPass(eField, eInput); } //calling checkPassword function on pass input keyup
 
-  function checkEmail() { //checkEmail function
-    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; //pattern for validate email
-    if (!eInput.value.match(pattern)) { //if pattern not matched then add error and remove valid class
-      eField.classList.add("error");
-      eField.classList.remove("valid");
-      let errorTxt = eField.querySelector(".error-txt");
-      //if email value is not empty then show please enter valid email else show Email can't be blank
-      (eInput.value != "") ? errorTxt.innerText = "Enter a valid email address" : errorTxt.innerText = "Email can't be blank";
-    } else { //if pattern matched then remove error and add valid class
-      eField.classList.remove("error");
-      eField.classList.add("valid");
-    }
-  }
-
-  function checkPass() { //checkPass function
-    if (pInput.value.length < 4) { //if pass is empty then add error and remove valid class
-      pField.classList.add("error");
-      pField.classList.remove("valid");
-    } else { //if pass is empty then remove error and add valid class
-      pField.classList.remove("error");
-      pField.classList.add("valid");
-    }
-  }
 
   //if eField and pField doesn't contains error class that mean user filled details properly
   if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
@@ -55,6 +64,33 @@ form.onsubmit = (e) => {
   }
 }
 
+/* **************************  form  validation for reset password *****########################### */
+const formR = document.querySelector("form#resetPass");
+eFieldR = formR.querySelector(".emailR");
+eInputR = eFieldR.querySelector("input");
+pFieldR = formR.querySelector(".passwordR");
+pInputR = pFieldR.querySelector("input");
+
+formR.onsubmit = (e) => {
+  e.preventDefault(); 
+  (eInputR.value == "") ? eFieldR.classList.add("shake", "error") : checkEmail(eFieldR, eInputR);
+  (pInputR.value == "") ? pFieldR.classList.add("shake", "error") : checkPass(pFieldR, pInputR);
+
+  setTimeout(() => { //remove shake class after 500ms
+    eFieldR.classList.remove("shake");
+    pFieldR.classList.remove("shake");
+  }, 500);
+
+  eInputR.onkeyup = () => { checkEmail(eFieldR, eInputR); } //calling checkEmail function on email input keyup
+  pInputR.onkeyup = () => { checkPass(pFieldR, pInputR); } //calling checkPassword function on pass input keyup
+
+  //if eField and pField doesn't contains error class that mean user filled details properly
+  if (!eFieldR.classList.contains("error") && !pFieldR.classList.contains("error")) {
+    showAlert("Wait a moment....", "resetPass", false, 2000);
+    // perform the password reset here
+    resetPassword();
+  }
+}
 
 
 // *** /\/\/\/\/\/\/\/\/ form validation for the registration /\/\/\/\/\/\***
@@ -75,8 +111,8 @@ form2.onsubmit = (e) => {
   e.preventDefault(); //preventing from form submitting
   //if email and password is blank then add shake class in it else call specified function
   (uInput.value == "") ? uField.classList.add("shake", "error") : checkUsername();
-  (eInput2.value == "") ? eField2.classList.add("shake", "error") : checkEmail2();
-  (pInput2.value == "") ? pField2.classList.add("shake", "error") : checkPass2();
+  (eInput2.value == "") ? eField2.classList.add("shake", "error") : checkEmail(eField2, eInput2);
+  (pInput2.value == "") ? pField2.classList.add("shake", "error") : checkPass(pField2, pInput2);
   (fInput.value == "") ? fField.classList.add("shake", "error") : checkFirstname();
   (lInput.value == "") ? lField.classList.add("shake", "error") : checkLastname();
 
@@ -88,41 +124,18 @@ form2.onsubmit = (e) => {
     lField.classList.remove("shake");
   }, 500);
 
-  uInput.onkeyup = () => { checkUsername(); } //calling checkUsername function on username input keyup
-  eInput2.onkeyup = () => { checkEmail2(); } //calling checkEmail function on email input keyup
-  pInput2.onkeyup = () => { checkPass2(); } //calling checkPassword function on pass input keyup
+  uInput.onkeyup = () => { checkUsername(); } 
+  eInput2.onkeyup = () => { checkEmail(eField2, eInput2); } 
+  pInput2.onkeyup = () => { checkPass(pField2, pInput2); } 
   fInput.onkeyup = () => { checkFirstname(); }
   lInput.onkeyup = () => { checkLastname(); }
 
-  function checkEmail2() { //checkEmail function
-    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; //pattern for validate email
-    if (!eInput2.value.match(pattern)) { //if pattern not matched then add error and remove valid class
-      eField2.classList.add("error");
-      eField2.classList.remove("valid");
-      let errorTxt = eField2.querySelector(".error-txt");
-      //if email value is not empty then show please enter valid email else show Email can't be blank
-      (eInput2.value != "") ? errorTxt.innerText = "Enter a valid email address" : errorTxt.innerText = "Email can't be blank";
-    } else { //if pattern matched then remove error and add valid class
-      eField2.classList.remove("error");
-      eField2.classList.add("valid");
-    }
-  }
 
-  function checkPass2() { //checkPass function
-    if (pInput2.value.length < 4) { //if pass is empty then add error and remove valid class
-      pField2.classList.add("error");
-      pField2.classList.remove("valid");
-    } else { //if pass is empty then remove error and add valid class
-      pField2.classList.remove("error");
-      pField2.classList.add("valid");
-    }
-  }
-
-  function checkUsername() { //checkPass function
-    if (uInput.value.length < 4) { //if pass is empty then add error and remove valid class
+  function checkUsername() {
+    if (uInput.value.length < 4) { 
       uField.classList.add("error");
       uField.classList.remove("valid");
-    } else { //if pass is empty then remove error and add valid class
+    } else { 
       uField.classList.remove("error");
       uField.classList.add("valid");
     }
@@ -191,7 +204,7 @@ form4.onsubmit = (e) => {
   e.preventDefault(); //preventing from form submitting
   //if email and password is blank then add shake class in it else call specified function
   (tInput.value == "") ? tField.classList.add("shake", "error") : checkText();
-  (emailContactInput.value == "") ? emailContactField.classList.add("shake", "error") : checkEmailContact();
+  (emailContactInput.value == "") ? emailContactField.classList.add("shake", "error") : checkEmail(emailContactField, emailContactInput);
 
   setTimeout(() => { //remove shake class after 500ms
     tField.classList.remove("shake");
@@ -199,22 +212,9 @@ form4.onsubmit = (e) => {
   }, 500);
 
   tInput.onkeyup = () => { checkText(); } //calling checkUsername function on username input keyup
-  emailContactInput.onkeyup = () => { checkEmailContact(); } //calling checkEmail function on email input keyup
+  emailContactInput.onkeyup = () => { checkEmail(emailContactField, emailContactInput); } //calling checkEmail function on email input keyup
 
-  function checkEmailContact() { //checkEmail contact function
-    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; //pattern for validate email
-    if (!emailContactInput.value.match(pattern)) { //if pattern not matched then add error and remove valid class
-      emailContactField.classList.add("error");
-      emailContactField.classList.remove("valid");
-      let errorTxt = emailContactField.querySelector(".error-txt");
-      //if email value is not empty then show please enter valid email else show Email can't be blank
-      (emailContactInput.value != "") ? errorTxt.innerText = "Enter a valid email address" : errorTxt.innerText = "Email can't be blank";
-    } else { //if pattern matched then remove error and add valid class
-      emailContactField.classList.remove("error");
-      emailContactField.classList.add("valid");
-    }
-  }
-
+  
   function checkText() { //checkPass function
     // Use a regular expression to check if there is at least one word
     const hasWord = /[^\s]/.test(tInput.value.trim());
@@ -278,6 +278,38 @@ async function login() {
   }
   catch {
     showAlert("Something went wrong. Please check your network connection.", "login", true);
+  }
+
+}
+
+
+// login functions
+async function resetPassword() {
+  email = eInputR.value;
+  new_password = pInputR.value;
+
+  try {
+    const response = await fetch('https://yembaner.onrender.com/user/password/reset/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, new_password })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      showAlert(`A verification email has been sent to the provided email address!\n `, "resetPass");
+      element = document.body.classList.toggle("show-popup-logreg");
+      eInputR.value = "";
+      pInputR.value = "";
+    } else {
+      showAlert("Please make sure the provided email address is linked to your account and your network is good.", "resetPass", true, 7000);
+    }
+
+  }
+  catch {
+    showAlert("Something went wrong. Please check your network connection.", "resetPass", true);
   }
 
 }
@@ -436,6 +468,10 @@ function showAlert(message, path = "", isError = false, duration = 5000) {
       element = document.querySelector('.alert-container-profile');
       displayAlert({ element: element, message: message, duration: duration, isError: isError });
       break;
+      case "resetPass":
+        element = document.querySelector('.alert-container-resetPass');
+        displayAlert({ element: element, message: message, duration: duration, isError: isError });
+        break;
     default:
       element = document.querySelector('#alert-container');
       displayAlert({ element: element, message: message, duration: duration, isError: isError });

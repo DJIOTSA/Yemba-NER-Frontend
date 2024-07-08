@@ -5,6 +5,8 @@ const showLogRegBtn = document.querySelector(".login-btn");
 const formPopup = document.querySelector("#logreg.popup");
 const hidePopupBtn = formPopup.querySelector(".close-btn");
 const signupLoginLink = formPopup.querySelectorAll(".bottom-link a");
+const resetLoginLink = formPopup.querySelectorAll(".middle-link a");
+
 //  Show login popup
 showLogRegBtn.addEventListener("click", () => {
   if (showLogRegBtn.textContent === 'Login'){
@@ -19,7 +21,6 @@ showLogRegBtn.addEventListener("click", () => {
     updateLoginButton();
   }
 });
-
 // Hide login popup
 hidePopupBtn.addEventListener("click", () => showLogRegBtn.click());
 // Show or hide signup form
@@ -29,6 +30,14 @@ signupLoginLink.forEach(link => {
     formPopup.classList[link.id === 'signup-link' ? 'add' : 'remove']("show-signup");
   });
 });
+// Show or hide reset form
+resetLoginLink.forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    formPopup.classList[link.id === 'forgot-pass-link' ? 'add' : 'remove']("show-resetPass");
+  });
+});
+
 
 
 

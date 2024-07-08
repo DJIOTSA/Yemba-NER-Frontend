@@ -206,13 +206,15 @@ header {
   align-items: center;
 }
 
+.resetPass .form-details,
 .profile .form-details,
 .login .form-details {
-  padding: 0 40px;
+  padding: 0 10px;
   background: url("../../images/logo1.png");
   background-position: center;
   background-size: cover;
 }
+
 
 .aboutus .form-details,
 .contact .form-details,
@@ -314,11 +316,16 @@ form button:hover {
   text-align: center;
 }
 
+.popup .resetPass,
 .popup .signup,
-.popup.show-signup .login {
+.popup.show-signup .login,
+.popup.show-signup .resetPass,
+.popup.show-resetPass .login,
+.popup.show-resetPass .signup {
   display: none;
 }
 
+.popup.show-resetPass .resetPass,
 .popup.show-signup .signup {
   display: flex;
 }

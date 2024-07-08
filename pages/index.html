@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    
+    <link rel="icon" href="../images/Logo2.png">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <!-- load jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -67,18 +67,20 @@
     <!-- login and sign up popup -->
     <div class="popup" id="logreg">
         <span class="close-btn material-symbols-rounded">close</span>
+
+        <!-- login section -->
         <div class="form-box login">
             <div class="form-details">
-                <h2 class="text-ner" style="margin-top: 7rem;">Welcome Back</h2>
+                <h2 class="text-ner" style="margin-top: 12rem;">Welcome Back</h2>
                 <p>Please log in using your personal information to stay connected with us.</p>
             </div>
             <div class="form-content">
-                <h2 class="important">LOGIN</h2>
+                <h2 class="important ">LOGIN</h2>
                 <div class="alert-container-login"></div>
-                <form id="login" action="./index.html">
+                <form id="login" action="#">
                     <div class="field email">
                         <div class="input-area">
-                            <input type="text" placeholder="Email Address">
+                            <input type="text" name="email" placeholder="Email Address">
                             <i class="icon fas fa-envelope"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
@@ -86,13 +88,16 @@
                     </div>
                     <div class="field password">
                         <div class="input-area">
-                            <input type="password" placeholder="Password">
+                            <input type="password" name="password" placeholder="Password">
                             <i class="icon fas fa-lock"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
                         <div class="error error-txt">Invalid Password</div>
                     </div>
-                    <a href="#" class="forgot-pass-link">Forgot password?</a>
+                    <div class="middle-link">
+                        <a href="#" id="forgot-pass-link">Forgot password?</a>
+                    </div>
+                    
                     <button class="cta-button" type="submit">Log In</button>
                 </form>
                 <div class="bottom-link">
@@ -101,9 +106,46 @@
                 </div>
             </div>
         </div>
+        <!-- password reset section -->
+        <div class="form-box resetPass">
+            <div class="form-details">
+                <h2 class="text-ner" style="margin-top: 12rem;">Forgot Password?</h2>
+                <p>Don't worry! You can reset your password using the email address you used to register your account.
+                </p>
+            </div>
+            <div class="form-content">
+                <h2 class="important ">Reset Password</h2>
+                <div class="alert-container-resetPass"></div>
+                <form id="resetPass" action="#">
+                    <div class="field emailR">
+                        <div class="input-area">
+                            <input type="text" name="emailR" placeholder="Account Email Address">
+                            <i class="icon fas fa-envelope"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Email can't be blank</div>
+                    </div>
+                    <div class="field passwordR">
+                        <div class="input-area">
+                            <input type="password" name="passwordR" placeholder="The New Password">
+                            <i class="icon fas fa-lock"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Invalid Password</div>
+                    </div>
+                    
+                    <button class="cta-button" type="submit">Change My Password</button>
+                </form>
+                <div class="middle-link" style="text-align: center;">
+                    Remember my password?
+                    <a href="#" id="login-link"> Login</a>
+                </div>
+            </div>
+        </div>
+        <!-- signup section -->
         <div class="form-box signup">
             <div class="form-details">
-                <h2 class="text-ner" style="margin-top: 10rem;" >Unlock the Power of Yemba</h2>
+                <h2 class="text-ner" style="margin-top: 10rem;">Unlock the Power of Yemba</h2>
                 <h6>Create Your Account Today!</h6>
                 <p>Experience the future of data analysis with Yemba, our cutting-edge named entity recognition system.
                     By creating an account, you'll gain access to powerful tools that transform your data into
@@ -112,10 +154,10 @@
             <div class="form-content">
                 <h2 class="important">SIGNUP</h2>
                 <div class="alert-container-signup"></div>
-                <form id="register" action="./">
+                <form id="register" action="">
                     <div class="field username">
                         <div class="input-area">
-                            <input type="text" placeholder="Username">
+                            <input type="text" name="username" placeholder="Username">
                             <i class="icon fas fa-user"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
@@ -123,7 +165,7 @@
                     </div>
                     <div class="field email2">
                         <div class="input-area">
-                            <input type="text" placeholder="Email Address">
+                            <input type="text" name="email2" placeholder="Email Address">
                             <i class="icon fas fa-envelope"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
@@ -147,7 +189,7 @@
                     </div>
                     <div class="field password2">
                         <div class="input-area">
-                            <input type="password" placeholder="Password">
+                            <input type="password" name="password2" placeholder="Password">
                             <i class="icon fas fa-lock"></i>
                             <i class="error error-icon fas fa-exclamation-circle"></i>
                         </div>
