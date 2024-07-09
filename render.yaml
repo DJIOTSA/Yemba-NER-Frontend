@@ -8,4 +8,4 @@ services:
     name: yembanerui
     env: static
     buildCommand: ""
-    staticPublishPath: ./
+    staticPublishPath: ./pages
