@@ -300,9 +300,14 @@ async function resetPassword() {
     if (response.ok) {
       const data = await response.json();
       showAlert(`A verification email has been sent to the provided email address!\n `, "resetPass");
+
+      setTimeout(()=>{
+
+      }, 5000);
       element = document.body.classList.toggle("show-popup-logreg");
       eInputR.value = "";
       pInputR.value = "";
+
     } else {
       showAlert("Please make sure the provided email address is linked to your account and your network is good.", "resetPass", true, 7000);
     }
