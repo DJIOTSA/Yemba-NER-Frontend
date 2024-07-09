@@ -72,7 +72,7 @@ pFieldR = formR.querySelector(".passwordR");
 pInputR = pFieldR.querySelector("input");
 
 formR.onsubmit = (e) => {
-  e.preventDefault(); 
+  e.preventDefault();
   (eInputR.value == "") ? eFieldR.classList.add("shake", "error") : checkEmail(eFieldR, eInputR);
   (pInputR.value == "") ? pFieldR.classList.add("shake", "error") : checkPass(pFieldR, pInputR);
 
@@ -124,18 +124,18 @@ form2.onsubmit = (e) => {
     lField.classList.remove("shake");
   }, 500);
 
-  uInput.onkeyup = () => { checkUsername(); } 
-  eInput2.onkeyup = () => { checkEmail(eField2, eInput2); } 
-  pInput2.onkeyup = () => { checkPass(pField2, pInput2); } 
+  uInput.onkeyup = () => { checkUsername(); }
+  eInput2.onkeyup = () => { checkEmail(eField2, eInput2); }
+  pInput2.onkeyup = () => { checkPass(pField2, pInput2); }
   fInput.onkeyup = () => { checkFirstname(); }
   lInput.onkeyup = () => { checkLastname(); }
 
 
   function checkUsername() {
-    if (uInput.value.length < 4) { 
+    if (uInput.value.length < 4) {
       uField.classList.add("error");
       uField.classList.remove("valid");
-    } else { 
+    } else {
       uField.classList.remove("error");
       uField.classList.add("valid");
     }
@@ -214,7 +214,7 @@ form4.onsubmit = (e) => {
   tInput.onkeyup = () => { checkText(); } //calling checkUsername function on username input keyup
   emailContactInput.onkeyup = () => { checkEmail(emailContactField, emailContactInput); } //calling checkEmail function on email input keyup
 
-  
+
   function checkText() { //checkPass function
     // Use a regular expression to check if there is at least one word
     const hasWord = /[^\s]/.test(tInput.value.trim());
@@ -419,21 +419,32 @@ async function registration() {
 
 // view profile
 async function fetchUserProfile() {
-  const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
+
   const email = document.querySelector('form#profile .email3 input');
   const username = document.querySelector('form#profile .username3 input');
   const first_name = document.querySelector('form#profile .first_name2 input');
   const last_name = document.querySelector('form#profile .last_name2 input');
-  if (response.ok) {
-    const data = await response.json();
-    username.value = `Username: ${data['results'][0]['username']}`;
-    email.value = `Email: ${data['results'][0]['email']}`;
-    first_name.value = `First Name: ${data['results'][0]['first_name']}`;
-    last_name.value = `Last Name: ${data['results'][0]['last_name']}`;
 
-  } else {
-    showAlert("Login to see your personal informations", "profile", false, 3000);
+  try {
+    const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
+    if (response.ok) {
+      const data = await response.json();
+      username.value = data['results'][0]['username'];
+      email.value = data['results'][0]['email'];
+      first_name.value = data['results'][0]['first_name'];
+      last_name.value = data['results'][0]['last_name'];
+    } else {
+      showAlert("Login to see your personal informations", "profile", false, 3000);
+    }
+  } catch {
+    if (!retrieveLoginState()) {
+      showAlert("Login to see your personal informations", "profile", false, 3000);
+    } else {
+      showAlert("An unexpected error occurred. check your network connection and try again later.", "profile", true, 7000);
+    }
+    
   }
+
 }
 
 // setInterval(() => {
@@ -468,10 +479,10 @@ function showAlert(message, path = "", isError = false, duration = 5000) {
       element = document.querySelector('.alert-container-profile');
       displayAlert({ element: element, message: message, duration: duration, isError: isError });
       break;
-      case "resetPass":
-        element = document.querySelector('.alert-container-resetPass');
-        displayAlert({ element: element, message: message, duration: duration, isError: isError });
-        break;
+    case "resetPass":
+      element = document.querySelector('.alert-container-resetPass');
+      displayAlert({ element: element, message: message, duration: duration, isError: isError });
+      break;
     default:
       element = document.querySelector('#alert-container');
       displayAlert({ element: element, message: message, duration: duration, isError: isError });
