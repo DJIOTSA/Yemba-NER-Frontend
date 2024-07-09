@@ -429,10 +429,10 @@ async function fetchUserProfile() {
     const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
     if (response.ok) {
       const data = await response.json();
-      username.value = data['results'][0]['username'];
-      email.value = data['results'][0]['email'];
-      first_name.value = data['results'][0]['first_name'];
-      last_name.value = data['results'][0]['last_name'];
+      username.value += data['results'][0]['username'];
+      email.value += data['results'][0]['email'];
+      first_name.value += data['results'][0]['first_name'];
+      last_name.value += data['results'][0]['last_name'];
     } else {
       showAlert("Login to see your personal informations", "profile", false, 3000);
     }
@@ -446,19 +446,6 @@ async function fetchUserProfile() {
   }
 
 }
-
-// setInterval(() => {
-//   if (!retrieveLoginState()) {
-//     history.querySelector('h2').innerHTML = "You must have an account to see your history.";
-//     history.querySelector('.table').style.display = "none";
-//     return;
-//   }
-//   history.querySelector('h2').innerHTML = "All Your Previous Works Range From The Recent To The Oldest!";
-//   history.querySelector('.table').style.display = "";
-//   fetchUserHistory()
-// }, 1000);
-
-
 
 
 
