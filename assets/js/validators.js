@@ -270,7 +270,7 @@ async function login() {
 
     } else {
       loginLoader.style.display = 'none';
-      showAlert("Something went wrong! Please enter valid credentials and check your network.", "login", true, 7000);
+      showAlert("Something went wrong! Please enter valid credentials and check your network.", "login", true);
     }
 
   }
