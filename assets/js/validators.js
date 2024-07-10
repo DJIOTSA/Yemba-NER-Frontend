@@ -301,7 +301,7 @@ async function resetPassword() {
       const data = await response.json();
       showAlert(`A verification email has been sent to the provided email address!\n `, "resetPass");
 
-      setTimeout(()=>{
+      setTimeout(() => {
 
       }, 5000);
       element = document.body.classList.toggle("show-popup-logreg");
@@ -340,7 +340,12 @@ async function refreshToken() {
     const data = await response.json();
     localStorage.setItem('access_token', data.access);
   } else {
-    // Handle token refresh failure (e.g., log out the user)
+    // logout the user
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    // handle login button
+    storeLoginState(false);
+    updateLoginButton();
     document.body.classList.toggle("show-popup-logreg");
     showAlert("Please login to continue!", "login");
   }
@@ -430,25 +435,30 @@ async function fetchUserProfile() {
   const first_name = document.querySelector('form#profile .first_name2 input');
   const last_name = document.querySelector('form#profile .last_name2 input');
 
-  try {
-    const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
-    if (response.ok) {
-      const data = await response.json();
-      username.value += data['results'][0]['username'];
-      email.value += data['results'][0]['email'];
-      first_name.value += data['results'][0]['first_name'];
-      last_name.value += data['results'][0]['last_name'];
-    } else {
-      showAlert("Login to see your personal informations", "profile", false, 3000);
+
+  if (retrieveLoginState) {
+    try {
+      const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
+      if (response.ok) {
+        const data = await response.json();
+        username.value += data['results'][0]['username'];
+        email.value += data['results'][0]['email'];
+        first_name.value += data['results'][0]['first_name'];
+        last_name.value += data['results'][0]['last_name'];
+      } else {
+        showAlert("Something went wrong. Please, check your network connection and try again later.", "profile", false, 7000);
+      }
+    } catch {
+      showAlert("An unexpected error occurred. Please, check your network connection and try again later.", "profile", true, 7000);
     }
-  } catch {
-    if (!retrieveLoginState()) {
-      showAlert("Login to see your personal informations", "profile", false, 3000);
-    } else {
-      showAlert("An unexpected error occurred. check your network connection and try again later.", "profile", true, 7000);
-    }
-    
+
+  } else {
+    showAlert("Login to see your personal informations", "profile", false, 3000);
   }
+
+} 
+
+  
 
 }
 
