@@ -450,10 +450,10 @@ async function fetchUserProfile() {
       const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
       if (response.ok) {
         const data = await response.json();
-        username.value += data['results'][0]['username'];
-        email.value += data['results'][0]['email'];
-        first_name.value += data['results'][0]['first_name'];
-        last_name.value += data['results'][0]['last_name'];
+        username.value = `Username: ${data['results'][0]['username']}`;
+        email.value = `Email: ${data['results'][0]['email']}`;
+        first_name.value = `First Name: ${data['results'][0]['first_name']}`;
+        last_name.value = `Last Name: ${data['results'][0]['last_name']}`;
         profileLoader.style.display = 'none';
       } else {
         profileLoader.style.display = 'none';
