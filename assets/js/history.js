@@ -49,7 +49,7 @@ async function getHistoryData() {
             }
         } else {
             history.querySelector('.table').style.display = "block";
-            history.querySelector('.table').innerHTML = `<p class="text-ner text-center text-lead"> You don't have stored history yet!</p>`
+            history.querySelector('.table').innerHTML = `<p class="text-ner text-center text-lead"> <i class="fa fa-info " aria-hidden="true"></i> You don't have stored history yet!</p>`
         }
     } else {
         historyLoader.style.display ='none';
