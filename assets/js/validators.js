@@ -258,14 +258,13 @@ async function login() {
       const data = await response.json();
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
-
       // handle login button and change login status to true
       storeLoginState(true);
       updateLoginButton();
       loginLoader.style.display ='none';
-      window.location.reload();
-      showAlert('Login successful!', "", false, 9000);
+      showAlert('Login successful!', "", false, 3000);
       // element = document.body.classList.toggle("show-popup-logreg");
+      window.location.reload()
       eInput.value = "";
       pInput.value = "";
 

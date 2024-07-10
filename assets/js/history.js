@@ -59,7 +59,7 @@ async function getHistoryData() {
 }
 
 function storeLoginState(isLoggedIn) {
-    localStorage.setItem('isLoggedIn', isLoggedIn); // Or use sessionStorage if needed
+    localStowirage.setItem('isLoggedIn', isLoggedIn); // Or use sessionStorage if needed
 }
 
 function retrieveLoginState() {
