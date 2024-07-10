@@ -45,7 +45,7 @@ async function getHistoryData() {
                 historyContent.innerHTML += template;
             }
         } else {
-            historyContent.innerHTML = `<p class="text-ner"> You don't have stored history yet!</p>`
+            historyContent.innerHTML = `<p class="text-ner text-center"> You don't have stored history yet!</p>`
         }
     } else {
         console.log('Failed to fetch data:', response.statusText);
