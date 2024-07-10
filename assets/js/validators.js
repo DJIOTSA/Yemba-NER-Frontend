@@ -263,7 +263,8 @@ async function login() {
       storeLoginState(true);
       updateLoginButton();
       loginLoader.style.display ='none';
-      showAlert('Login successful!', "login", false, 2000);
+      window.location.reload();
+      showAlert('Login successful!', "", false, 3000);
       element = document.body.classList.toggle("show-popup-logreg");
       eInput.value = "";
       pInput.value = "";
