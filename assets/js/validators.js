@@ -436,7 +436,7 @@ async function fetchUserProfile() {
   const last_name = document.querySelector('form#profile .last_name2 input');
 
 
-  if (retrieveLoginState) {
+  if (retrieveLoginState()) {
     try {
       const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
       if (response.ok) {
@@ -457,10 +457,6 @@ async function fetchUserProfile() {
   }
 
 } 
-
-  
-
-}
 
 
 
