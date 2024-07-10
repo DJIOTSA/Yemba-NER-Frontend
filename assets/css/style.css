@@ -799,6 +799,10 @@ main::-webkit-scrollbar {
     position: relative;
     top: calc(17vh);
   } */
+
+  #loader-history {
+    text-align: center;
+  }
   
 }
 
@@ -822,6 +826,8 @@ main::-webkit-scrollbar {
       transform: rotate(360deg);
   }
 }
+
+
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {}
