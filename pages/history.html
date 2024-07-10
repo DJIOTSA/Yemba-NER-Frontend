@@ -143,8 +143,9 @@
                 <p>Please log in using your personal information to stay connected with us.</p>
             </div>
             <div class="form-content">
-                <h2 class="important ">LOGIN</h2>
+                <h2 class="important ">LOGIN <span class="loader" id="loader-login" style="display:none;"></span></h2>
                 <div class="alert-container-login"></div>
+                
                 <form id="login" action="#">
                     <div class="field email">
                         <div class="input-area">
@@ -182,7 +183,7 @@
                 </p>
             </div>
             <div class="form-content">
-                <h2 class="important ">Reset Password</h2>
+                <h2 class="important ">Reset Password<span class="loader" id="loader-resetPass" style="display:none;"></span></h2>
                 <div class="alert-container-resetPass"></div>
                 <form id="resetPass" action="#">
                     <div class="field emailR">
@@ -220,7 +221,7 @@
                     actionable insights.</p>
             </div>
             <div class="form-content">
-                <h2 class="important">SIGNUP</h2>
+                <h2 class="important">SIGNUP <span class="loader" id="loader-signup" style="display:none;"></span></h2>
                 <div class="alert-container-signup"></div>
                 <form id="register" action="">
                     <div class="field username">
@@ -289,7 +290,7 @@
                 <p>View your personal information here.</p>
             </div>
             <div class="form-content">
-                <h2 class="important">My Profile</h2>
+                <h2 class="important">My Profile <span class="loader" id="loader-profile" style="display:none;"></span></h2>
                 <div class="alert-container-profile"></div>
                 <form id="profile" action="#">
                     <div class="field username3">
@@ -334,7 +335,7 @@
         <span class="close-btn material-symbols-rounded">close</span>
         <div class="form-box contact">
             <div class="form-details object-fit-sm-contain border rounded">
-                <h2 style="margin-top: 7rem;">We Value Your Feedback!</h2>
+                <h2 class="text-ner" style="margin-top: 7rem;">We Value Your Feedback!</h2>
                 <p>Your experience matters to us. If you have any thoughts, suggestions, or concerns, please let us
                     know. Your feedback helps us improve and serve you better. Feel free to share your insights!</p>
             </div>
@@ -395,8 +396,9 @@
                             <th scope="col">Result</th>
                         </tr>
                     </thead>
+                    <div class="loader" id="loader-history" style="display:none;"></div>
                     <tbody id="history-content">
-
+                        
                     </tbody>
                 </table>
 

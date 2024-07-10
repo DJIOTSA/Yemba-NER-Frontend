@@ -1,4 +1,5 @@
 /* fetch data history data */
+const historyLoader = document.querySelector("#loader-history");
 
 // history function
 function fetchUserHistory() {
@@ -33,7 +34,7 @@ function fetchUserHistory() {
 
 
 async function getHistoryData() {
-    showAlert("Loading!...", "history");
+    historyLoader.style.display ='';
     const response = await apiRequest('https://yembaner.onrender.com/app/history/');
     if (response.ok) {
         const data = await response.json();
@@ -44,10 +45,13 @@ async function getHistoryData() {
                 let template = `<tr><td>${element['input']}</td><td>${element['output']}</td></tr>`
                 historyContent.innerHTML += template;
             }
+            historyLoader.style.display ='none';
         } else {
-            historyContent.innerHTML = `<p class="text-ner text-center"> You don't have stored history yet!</p>`
+            historyContent.innerHTML = `<p class="text-ner text-lead"> You don't have stored history yet!</p>`
+            historyLoader.style.display ='none';
         }
     } else {
+        historyLoader.style.display ='none';
         console.log('Failed to fetch data:', response.statusText);
         showAlert("Something went wrong! please check your internet connection and try again later. Else contact us if the issue persists.", 'history', true, 7000)
     }

@@ -1,6 +1,11 @@
 // update login button textContent
 updateLoginButton();
 
+const loginLoader = document.querySelector("#loader-login");
+const resetPassLoader = document.querySelector("#loader-resetPass");
+const signupLoader = document.querySelector("#loader-signup");
+const profileLoader = document.querySelector("#loader-profile");
+
 
 /*  utility functions */
 
@@ -58,7 +63,6 @@ form.onsubmit = (e) => {
 
   //if eField and pField doesn't contains error class that mean user filled details properly
   if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
-    showAlert("Wait a moment...", "login", false, 1500);
     // perform the login here
     login();
   }
@@ -86,7 +90,6 @@ formR.onsubmit = (e) => {
 
   //if eField and pField doesn't contains error class that mean user filled details properly
   if (!eFieldR.classList.contains("error") && !pFieldR.classList.contains("error")) {
-    showAlert("Wait a moment....", "resetPass", false, 2000);
     // perform the password reset here
     resetPassword();
   }
@@ -163,14 +166,8 @@ form2.onsubmit = (e) => {
 
   //if eField and pField doesn't contains error class that mean user filled details properly
   if (!eField2.classList.contains("error") && !pField2.classList.contains("error") && !uField.classList.contains("error") && !fField.classList.contains("error") && !lField.classList.contains("error")) {
-    showAlert("A verification email will be send to the provided email shortly.", "signup", false, 4000);
     // perform the registration
     registration();
-
-    setTimeout(() => {
-      element = document.body.classList.toggle("show-popup-logreg");
-    }, 4000)
-
   }
 }
 
@@ -189,8 +186,6 @@ showProfileBtn.addEventListener("click", () => {
 });
 // Hide login popup
 hideProfileBtn.addEventListener("click", () => showProfileBtn.click());
-
-
 
 // contact us validator 
 
@@ -249,7 +244,7 @@ const historyContent = document.getElementById('history-content');
 async function login() {
   email = eInput.value;
   password = pInput.value;
-
+  loginLoader.style.display ="";
   try {
     const response = await fetch('https://yembaner.onrender.com/user/api/token/', {
       method: 'POST',
@@ -267,16 +262,20 @@ async function login() {
       // handle login button and change login status to true
       storeLoginState(true);
       updateLoginButton();
-      showAlert('Login successful!', "login");
+      loginLoader.style.display ='none';
+      showAlert('Login successful!', "login", false, 2000);
       element = document.body.classList.toggle("show-popup-logreg");
       eInput.value = "";
       pInput.value = "";
+
     } else {
+      loginLoader.style.display = 'none';
       showAlert("Something went wrong. Please check your credentials or your network.", "login", true, 7000);
     }
 
   }
   catch {
+    loginLoader.style.display = 'none';
     showAlert("Something went wrong. Please check your network connection.", "login", true);
   }
 
@@ -287,7 +286,7 @@ async function login() {
 async function resetPassword() {
   email = eInputR.value;
   new_password = pInputR.value;
-
+  resetPassLoader.style.display = "";
   try {
     const response = await fetch('https://yembaner.onrender.com/user/password/reset/', {
       method: 'POST',
@@ -299,6 +298,7 @@ async function resetPassword() {
 
     if (response.ok) {
       const data = await response.json();
+      resetPassLoader.style.display = "none";
       showAlert(`A verification email has been sent to the provided email address!\n `, "resetPass");
 
       setTimeout(() => {
@@ -309,11 +309,13 @@ async function resetPassword() {
       pInputR.value = "";
 
     } else {
+      resetPassLoader.style.display = "none";
       showAlert("Please make sure the provided email address is linked to your account and your network is good.", "resetPass", true, 7000);
     }
 
   }
   catch {
+    resetPassLoader.style.display = "none";
     showAlert("Something went wrong. Please check your network connection.", "resetPass", true);
   }
 
@@ -398,7 +400,7 @@ async function registration() {
   const first_name = fInput.value;
   const last_name = lInput.value;
   const password = pInput2.value;
-
+  signupLoader.style.display = '';
   try {
     const response = await fetch('https://yembaner.onrender.com/user/signup/', {
       method: 'POST',
@@ -409,7 +411,12 @@ async function registration() {
     });
 
     if (response.ok) {
+      signupLoader.style.display = 'none';
+      showAlert("A verification email has been sent to the provided email.", "signup", false, 7000);
       // Clear input fields
+      setTimeout(() => {
+        element = document.body.classList.toggle("show-popup-logreg");
+      }, 7000);
       uInput.value = '';
       eInput2.value = '';
       fInput.value = '';
@@ -417,12 +424,14 @@ async function registration() {
       pInput2.value = '';
     } else {
       const errorData = await response.json(); // Wait for JSON parsing
-      showAlert(`${errorData['email'] ? errorData['email'][0] : ''} \n ${errorData['username'] ? errorData['username'][0] : ''}`, "", true, 7000);
+      signupLoader.style.display = 'none';
+      showAlert(`${errorData['email'] ? errorData['email'][0] : ''} \n ${errorData['username'] ? errorData['username'][0] : ''}`, "signup", true, 7000);
     }
   } catch (error) {
     // Handle all errors (network, parsing, etc.)
     console.error('Error:', error);
-    showAlert("An unexpected error occurred. Please try again later.", "", true, 7000);
+    signupLoader.style.display = 'none';
+    showAlert("An unexpected error occurred. Please try again later.", "signup", true);
   }
 }
 
@@ -434,10 +443,10 @@ async function fetchUserProfile() {
   const username = document.querySelector('form#profile .username3 input');
   const first_name = document.querySelector('form#profile .first_name2 input');
   const last_name = document.querySelector('form#profile .last_name2 input');
-
-
+  
   if (retrieveLoginState()) {
     try {
+      profileLoader.style.display = '';
       const response = await apiRequest('https://yembaner.onrender.com/user/profile/');
       if (response.ok) {
         const data = await response.json();
@@ -445,14 +454,18 @@ async function fetchUserProfile() {
         email.value += data['results'][0]['email'];
         first_name.value += data['results'][0]['first_name'];
         last_name.value += data['results'][0]['last_name'];
+        profileLoader.style.display = 'none';
       } else {
+        profileLoader.style.display = 'none';
         showAlert("Something went wrong. Please, check your network connection and try again later.", "profile", false, 7000);
       }
     } catch {
+      profileLoader.style.display = 'none';
       showAlert("An unexpected error occurred. Please, check your network connection and try again later.", "profile", true, 7000);
     }
 
   } else {
+    profileLoader.style.display = 'none';
     showAlert("Login to see your personal informations", "profile", false, 3000);
   }
 
