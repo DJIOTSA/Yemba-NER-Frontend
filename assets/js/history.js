@@ -13,7 +13,6 @@ function fetchUserHistory() {
             return;
         }
         history.querySelector('h2').innerHTML = "All Your Previous Works Range From The Recent To The Oldest!";
-        history.querySelector('.table').style.display = "";
     });
 
     if (retrieveLoginState()) {
@@ -40,6 +39,7 @@ async function getHistoryData() {
         const data = await response.json();
         elements = data['results'].reverse()
         if (elements.length >= 1) {
+            history.querySelector('.table').style.display = "block";
             historyContent.innerHTML = ''
             for (element of elements) {
                 let template = `<tr><td>${element['input']}</td><td>${element['output']}</td></tr>`
@@ -47,8 +47,8 @@ async function getHistoryData() {
             }
             historyLoader.style.display ='none';
         } else {
-            historyContent.innerHTML = `<p class="text-ner text-lead"> You don't have stored history yet!</p>`
             historyLoader.style.display ='none';
+            history.querySelector('.table').innerHTML = `<p class="text-ner text-lead"> You don't have stored history yet!</p>`
         }
     } else {
         historyLoader.style.display ='none';
