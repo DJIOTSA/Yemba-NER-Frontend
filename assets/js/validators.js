@@ -264,7 +264,7 @@ async function login() {
       updateLoginButton();
       loginLoader.style.display ='none';
       window.location.reload();
-      showAlert('Login successful!', "", false, 3000);
+      showAlert('Login successful!', "", false, 8000);
       // element = document.body.classList.toggle("show-popup-logreg");
       eInput.value = "";
       pInput.value = "";
