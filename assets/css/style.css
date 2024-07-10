@@ -800,10 +800,7 @@ main::-webkit-scrollbar {
     top: calc(17vh);
   } */
 
-  #loader-history {
-    justify-content: center;
-    text-align: center;
-  }
+  
   
 }
 
