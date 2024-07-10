@@ -264,14 +264,14 @@ async function login() {
       updateLoginButton();
       loginLoader.style.display ='none';
       window.location.reload();
-      showAlert('Login successful!', "", false, 8000);
+      showAlert('Login successful!', "", false, 9000);
       // element = document.body.classList.toggle("show-popup-logreg");
       eInput.value = "";
       pInput.value = "";
 
     } else {
       loginLoader.style.display = 'none';
-      showAlert("Something went wrong. Please check your credentials or your network.", "login", true, 7000);
+      showAlert("Something went wrong! Please enter valid credentials and check your network.", "login", true, 7000);
     }
 
   }
