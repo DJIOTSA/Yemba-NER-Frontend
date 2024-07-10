@@ -801,6 +801,7 @@ main::-webkit-scrollbar {
   } */
 
   #loader-history {
+    justify-content: center;
     text-align: center;
   }
   
