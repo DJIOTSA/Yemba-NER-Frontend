@@ -32,13 +32,14 @@ document.getElementById('submitBtn').addEventListener('click', async function (e
         outputArea.innerHTML = `${formattedText}`;
         loader.style.display = 'none';
         toggleOutputVisibility();
-        if (retrieveLoginState()){
+        if (retrieveLoginState()) {
           const historyCreateApiUrl = "https://yembaner.onrender.com/app/history/create/";
           const History = {
             "input": inputText,
             "output": formattedText
           }
-          const createHistory = await sendPostRequest(historyCreateApiUrl, History);
+          const createHistory = await sendPostAuthenticateRequest(historyCreateApiUrl, History);
+          console.log("create history result:", createHistory)
         }
 
       }
@@ -63,71 +64,27 @@ function toggleOutputVisibility() {
 }
 
 
-// // Function to send a POST request and get the response
-// async function sendPostRequest(url, data) {
-//   let response = null;
-//   try {
-//     if (!retrieveLoginState()){
-//       response = await fetch(url, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(data)
-//       });
-//     }
-//     else{
-//       const access_token = localStorage.getItem('access_token');
-//       response = await fetch(url, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer ${access_token}`,
-//         },
-//         body: JSON.stringify(data)
-//       });
-//     }
-      
-      
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status: ${response.status}`);
-//     }
-
-//     const result = await response.json();
-//     console.log('Response:', result);
-//     return result;
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// }
-
-
 // Function to send a POST request and get the response
 async function sendPostRequest(url, data) {
-  let response = null;
   try {
-    if (!retrieveLoginState()) {
-      response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-    } else {
-      const access_token = localStorage.getItem('access_token');
-      if (!access_token) {
-        throw new Error('Access token is missing.');
-      }
-      response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${access_token}`,
-        },
-        body: JSON.stringify(data)
-      });
-    }
+
+    response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const access_token = localStorage.getItem('access_token');
+    response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token}`,
+      },
+      body: JSON.stringify(data)
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -137,10 +94,79 @@ async function sendPostRequest(url, data) {
     console.log('Response:', result);
     return result;
   } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// Function to handle API requests with automatic token refresh and retry mechanism
+async function apiRequest(endpoint, options = {}) {
+  let access_token = localStorage.getItem('access_token');
+
+  if (!access_token) {
+    console.error('No access token found');
+    return;
+  }
+
+  const fetchOptions = {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${access_token}`,
+      'Content-Type': 'application/json'  // Ensure the Content-Type header is set for POST requests
+    }
+  };
+
+  let response = await fetch(endpoint, fetchOptions);
+
+  if (response.status === 401) {
+    // Token might be expired, try to refresh it
+    await refreshToken();
+
+    // Retry the request with the new access token
+    access_token = localStorage.getItem('access_token');
+    if (!access_token) {
+      console.error('Failed to refresh token');
+      return;
+    }
+
+    const retryOptions = {
+      ...options,
+      headers: {
+        ...options.headers,
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    response = await fetch(endpoint, retryOptions);
+  }
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  // Parse the response as JSON and return it
+  const result = await response.json();
+  return result;
+}
+
+// Example usage for a POST request
+async function sendPostAuthenticateRequest(url, data) {
+  try {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(data)
+    };
+
+    const response = await apiRequest(url, options);
+    console.log('Response:', response);
+    return response;
+  } catch (error) {
     console.error('Error:', error.message);
     throw error; // Re-throw the error to allow the caller to handle it if needed
   }
 }
+
 
 
 /**
@@ -275,44 +301,6 @@ async function refreshToken() {
     showAlert("Please login to continue!", "login");
   }
 }
-
-
-async function apiRequest(endpoint, options = {}) {
-  const access_token = localStorage.getItem('access_token');
-
-  if (!access_token) {
-    console.error('No access token found');
-    return;
-  }
-
-  const response = await fetch(endpoint, {
-    ...options,
-    headers: {
-      ...options.headers,
-      'Authorization': `Bearer ${access_token}`
-    }
-  });
-
-  if (response.status === 401) {
-    // Token might be expired, try to refresh it
-    await refreshToken();
-
-    // Retry the request with the new access token
-    const newAccessToken = localStorage.getItem('access_token');
-    const retryResponse = await fetch(endpoint, {
-      ...options,
-      headers: {
-        ...options.headers,
-        'Authorization': `Bearer ${newAccessToken}`
-      }
-    });
-
-    return retryResponse;
-  }
-
-  return response;
-}
-
 
 
 function updateLoginButton() {
