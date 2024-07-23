@@ -39,7 +39,7 @@ document.getElementById('submitBtn').addEventListener('click', async function (e
             "output": formattedText
           }
           const createHistory = await sendPostAuthenticateRequest(historyCreateApiUrl, History);
-          console.log("create history result:", createHistory)
+          // console.log("create history result:", createHistory)
         }
 
       }
@@ -112,8 +112,8 @@ async function sendPostAuthenticateRequest(url, data) {
     };
 
     const response = await apiRequest2(url, options);
-    console.log('Response:', response);
-    return response;
+    // console.log('Response:', response);
+    return response.status;
   } catch (error) {
     console.error('Error:', error.message);
     throw error; // Re-throw the error to allow the caller to handle it if needed
