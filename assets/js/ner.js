@@ -81,9 +81,9 @@ async function sendPostRequest(url, data) {
       response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
         },
-        'Authorization': `Bearer ${access_token}`,
         body: JSON.stringify(data)
       });
     }
