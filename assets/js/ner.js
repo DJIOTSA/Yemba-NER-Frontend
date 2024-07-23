@@ -99,7 +99,7 @@ async function sendPostRequest(url, data) {
 }
 
 // Function to handle API requests with automatic token refresh and retry mechanism
-async function apiRequest(endpoint, options = {}) {
+async function apiRequest2(endpoint, options = {}) {
   let access_token = localStorage.getItem('access_token');
 
   if (!access_token) {
@@ -158,7 +158,7 @@ async function sendPostAuthenticateRequest(url, data) {
       body: JSON.stringify(data)
     };
 
-    const response = await apiRequest(url, options);
+    const response = await apiRequest2(url, options);
     console.log('Response:', response);
     return response;
   } catch (error) {
