@@ -168,7 +168,6 @@ async function sendPostAuthenticateRequest(url, data) {
 }
 
 
-
 /**
  * Format input text into HTML format using defined named entities.
  * 
