@@ -63,11 +63,50 @@ function toggleOutputVisibility() {
 }
 
 
+// // Function to send a POST request and get the response
+// async function sendPostRequest(url, data) {
+//   let response = null;
+//   try {
+//     if (!retrieveLoginState()){
+//       response = await fetch(url, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//       });
+//     }
+//     else{
+//       const access_token = localStorage.getItem('access_token');
+//       response = await fetch(url, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': `Bearer ${access_token}`,
+//         },
+//         body: JSON.stringify(data)
+//       });
+//     }
+      
+      
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
+
+//     const result = await response.json();
+//     console.log('Response:', result);
+//     return result;
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// }
+
+
 // Function to send a POST request and get the response
 async function sendPostRequest(url, data) {
   let response = null;
   try {
-    if (!retrieveLoginState()){
+    if (!retrieveLoginState()) {
       response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -75,9 +114,11 @@ async function sendPostRequest(url, data) {
         },
         body: JSON.stringify(data)
       });
-    }
-    else{
+    } else {
       const access_token = localStorage.getItem('access_token');
+      if (!access_token) {
+        throw new Error('Access token is missing.');
+      }
       response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -87,8 +128,7 @@ async function sendPostRequest(url, data) {
         body: JSON.stringify(data)
       });
     }
-      
-      
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -97,9 +137,11 @@ async function sendPostRequest(url, data) {
     console.log('Response:', result);
     return result;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error.message);
+    throw error; // Re-throw the error to allow the caller to handle it if needed
   }
 }
+
 
 /**
  * Format input text into HTML format using defined named entities.
