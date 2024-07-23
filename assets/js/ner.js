@@ -98,6 +98,28 @@ async function sendPostRequest(url, data) {
   }
 }
 
+
+// Example usage for a POST request
+async function sendPostAuthenticateRequest(url, data) {
+  try {
+    input = data["input"]
+    output =data["output"]
+    user = 1
+    accuracy = 0.0
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ input, output, user, accuracy })
+    };
+
+    const response = await apiRequest2(url, options);
+    console.log('Response:', response);
+    return response;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw error; // Re-throw the error to allow the caller to handle it if needed
+  }
+}
+
 // Function to handle API requests with automatic token refresh and retry mechanism
 async function apiRequest2(endpoint, options = {}) {
   let access_token = localStorage.getItem('access_token');
@@ -148,23 +170,6 @@ async function apiRequest2(endpoint, options = {}) {
   // Parse the response as JSON and return it
   const result = await response.json();
   return result;
-}
-
-// Example usage for a POST request
-async function sendPostAuthenticateRequest(url, data) {
-  try {
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(data)
-    };
-
-    const response = await apiRequest2(url, options);
-    console.log('Response:', response);
-    return response;
-  } catch (error) {
-    console.error('Error:', error.message);
-    throw error; // Re-throw the error to allow the caller to handle it if needed
-  }
 }
 
 
@@ -267,9 +272,6 @@ function formatTextWithEntities(inputText, entities) {
 
 
 
-
-
-
 async function refreshToken() {
   const refresh_token = localStorage.getItem('refresh_token');
 
@@ -312,9 +314,11 @@ function updateLoginButton() {
   }
 }
 
+
 function storeLoginState(isLoggedIn) {
   localStorage.setItem('isLoggedIn', isLoggedIn); // Or use sessionStorage if needed
 }
+
 
 function retrieveLoginState() {
   const storedState = localStorage.getItem('isLoggedIn'); // Or sessionStorage

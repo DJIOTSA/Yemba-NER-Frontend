@@ -392,7 +392,6 @@ async function apiRequest(endpoint, options = {}) {
 
 
 
-
 // registration function
 async function registration() {
   const username = uInput.value;
